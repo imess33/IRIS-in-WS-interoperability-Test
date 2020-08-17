@@ -70,6 +70,6 @@
 
 # 示例包WS的内容， 安装和加载
 
-[WS.Code包的介绍](WSPackageInstuction.md)  
+[WS.Code包的介绍](\WSPackageInstuction.md)  
 [SEDemo.XML演示包的介绍](SEDemoXMLPackage.md)
 
