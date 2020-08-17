@@ -1,0 +1,4995 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for Windows (x86-64) 2020.2 (Build 199U)" ts="2020-08-17 17:32:19">
+<Class name="SEDemo.Common.Document">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeChanged>65537,55848.587478</TimeChanged>
+<TimeCreated>65537,55639.888538</TimeCreated>
+
+<Property name="DocumentUniqueId">
+<Type>%String</Type>
+<InitialExpression>$SYSTEM.Util.CreateGUID()</InitialExpression>
+<Required>1</Required>
+</Property>
+
+<Index name="ukDocumentUniqueId">
+<Properties>DocumentUniqueId</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="RepositoryUniqueId">
+<Type>%String</Type>
+</Property>
+
+<Property name="DocumentCreateTime">
+<Type>%String</Type>
+</Property>
+
+<Property name="DocumentTitle">
+<Type>%String</Type>
+</Property>
+
+<Property name="AuthorName">
+<Type>%String</Type>
+</Property>
+
+<Property name="PatientID">
+<Type>%String</Type>
+</Property>
+
+<Property name="PatientName">
+<Type>%String</Type>
+</Property>
+
+<Property name="ServerOrganization">
+<Type>%String</Type>
+</Property>
+
+<Property name="EncounterNumber">
+<Type>%String</Type>
+</Property>
+
+<Property name="InTime">
+<Type>%String</Type>
+</Property>
+
+<Property name="OutTime">
+<Type>%String</Type>
+</Property>
+
+<Property name="AdmissionDepart">
+<Type>%String</Type>
+</Property>
+
+<Property name="AdmissionType">
+<Type>%String</Type>
+</Property>
+
+<Property name="DiagnosisResult">
+<Type>%String</Type>
+</Property>
+
+<Property name="DocumentUrl">
+<Type>%String</Type>
+</Property>
+
+<Property name="NoteText">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Property name="Content">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Property name="Stream">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DataLocation>^SEDemo.Common.DocumentD</DataLocation>
+<DefaultData>DocumentDefaultData</DefaultData>
+<IdLocation>^SEDemo.Common.DocumentD</IdLocation>
+<IndexLocation>^SEDemo.Common.DocumentI</IndexLocation>
+<StreamLocation>^SEDemo.Common.DocumentS</StreamLocation>
+<Data name="DocumentDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>DocumentUniqueId</Value>
+</Value>
+<Value name="3">
+<Value>RepositoryUniqueId</Value>
+</Value>
+<Value name="4">
+<Value>DocumentCreateTime</Value>
+</Value>
+<Value name="5">
+<Value>DocumentTitle</Value>
+</Value>
+<Value name="6">
+<Value>AuthorName</Value>
+</Value>
+<Value name="7">
+<Value>PatientID</Value>
+</Value>
+<Value name="8">
+<Value>PatientName</Value>
+</Value>
+<Value name="9">
+<Value>ServerOrganization</Value>
+</Value>
+<Value name="10">
+<Value>EncounterNumber</Value>
+</Value>
+<Value name="11">
+<Value>InTime</Value>
+</Value>
+<Value name="12">
+<Value>OutTime</Value>
+</Value>
+<Value name="13">
+<Value>AdmissionDepart</Value>
+</Value>
+<Value name="14">
+<Value>AdmissionType</Value>
+</Value>
+<Value name="15">
+<Value>DiagnosisResult</Value>
+</Value>
+<Value name="16">
+<Value>DocumentUrl</Value>
+</Value>
+<Value name="17">
+<Value>NoteText</Value>
+</Value>
+<Value name="18">
+<Value>Content</Value>
+</Value>
+<Value name="19">
+<Value>Stream</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.Common.DummyBO">
+<Description>
+Play a dummy BO role for demostrating HealthConnect
+Receive a string and return another string</Description>
+<Super>Ens.BusinessOperation</Super>
+<TimeChanged>65595,46673.601057</TimeChanged>
+<TimeCreated>64933,62208.818883</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Method name="processStringRequest">
+<FormalSpec>pRequest:Ens.StringRequest,*pResponse:Ens.StringResponse</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+   	 set pResponse=##class(Ens.StringResponse).%New()
+   	 set pResponse.StringValue="BO received StringRequest message"
+   	 return $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="processStringContainer">
+<FormalSpec>pRequest:Ens.StringContainer,*pResponse:Ens.StringContainer</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+   	 set pResponse=##class(Ens.StringContainer).%New()
+   	 set pResponse.StringValue="BO received StringContainer message"
+   	 return $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="processEDIXMLDocument">
+<FormalSpec>pRequest:EnsLib.EDI.XML.Document,*pResponse:Ens.StringContainer</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+   	 set pResponse=##class(Ens.StringContainer).%New()
+   	 set pResponse.StringValue="BO received EDIXMLDocumennt message"
+   	 return $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="processAlert">
+<FormalSpec>pRequest:Ens.AlertRequest,*pResponse:Ens.StringContainer</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+   	 set pResponse=##class(Ens.StringContainer).%New()
+   	 set pResponse.StringValue="BO received Alert message"
+   	 return $$$OK
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+	<MapItem MessageType="Ens.StringRequest"> 
+		<Method>processStringRequest</Method>
+	</MapItem>
+	<MapItem MessageType="Ens.StringContainer"> 
+		<Method>processStringContainer</Method>
+	</MapItem>
+	<MapItem MessageType="EnsLib.EDI.XML.Document"> 
+		<Method>processEDIXMLDocument</Method>
+	</MapItem>
+	<MapItem MessageType="Ens.AlertRequest"> 
+		<Method>processAlert</Method>
+	</MapItem>
+</MapItems>
+]]></Data>
+</XData>
+</Class>
+
+
+<Package name="SEDemo.Common" sqlname="SEDemo_Common"/>
+
+
+<Class name="SEDemo.Common.Patient">
+<Super>%Persistent,%XML.Adaptor</Super>
+<TimeChanged>65600,8350.26585</TimeChanged>
+<TimeCreated>65537,55639.888538</TimeCreated>
+
+<Property name="MPIID">
+<Description>
+平台注册的患者号码</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="220"/>
+</Property>
+
+<Index name="ukMPIID">
+<Properties>MPIID</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="NationalIDNumber">
+<Description>
+患者身份证号码</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="HealthCardNumber">
+<Description>
+居民健康卡号</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="OutpatientID">
+<Description>
+患者门诊ID</Description>
+<Type>%String</Type>
+</Property>
+
+<Index name="ukOutpatientID">
+<Properties>OutpatientID</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="InpatientID">
+<Description>
+患者住院ID</Description>
+<Type>%String</Type>
+</Property>
+
+<Index name="ukInpatientID">
+<Properties>InpatientID</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="Name">
+<Description>
+姓名</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="PrimaryLanguage">
+<Description>
+主要语言</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="Religion">
+<Description>
+宗教</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="Gender">
+<Description>
+性别</Description>
+<Type>WS.Code.GBT22611Gender</Type>
+</Property>
+
+<Property name="MaritalStatus">
+<Description>
+婚姻状态</Description>
+<Type>WS.Code.GBT22612MaritalStatus</Type>
+</Property>
+
+<Property name="EthnicGroup">
+<Description>
+民族</Description>
+<Type>WS.Code.GBT3304EthnicGroup</Type>
+</Property>
+
+<Property name="Occupation">
+<Description>
+职业</Description>
+<Type>WS.Code.GBT22614Occupation</Type>
+</Property>
+
+<Property name="DOB">
+<Description>
+出生日期</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="Address">
+<Description>
+住址</Description>
+<Type>WS.Service.Entity.Address</Type>
+</Property>
+
+<Property name="PhoneNumber">
+<Description>
+电话</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="SupportContacts">
+<Description>
+联系人</Description>
+<Type>WS.Service.Entity.SupportContact</Type>
+<Collection>list</Collection>
+</Property>
+
+<Property name="Employer">
+<Description>
+工作单位</Description>
+<Type>WS.Service.Entity.Organization</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DataLocation>^SEDemo.Common.PatientD</DataLocation>
+<DefaultData>PatientDefaultData</DefaultData>
+<IdLocation>^SEDemo.Common.PatientD</IdLocation>
+<IndexLocation>^SEDemo.Common.PatientI</IndexLocation>
+<StreamLocation>^SEDemo.Common.PatientS</StreamLocation>
+<Data name="PatientDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>MPIID</Value>
+</Value>
+<Value name="3">
+<Value>NationalIDNumber</Value>
+</Value>
+<Value name="4">
+<Value>HealthCardNumber</Value>
+</Value>
+<Value name="5">
+<Value>OutpatientID</Value>
+</Value>
+<Value name="6">
+<Value>InpatientID</Value>
+</Value>
+<Value name="7">
+<Value>Name</Value>
+</Value>
+<Value name="8">
+<Value>PrimaryLanguage</Value>
+</Value>
+<Value name="9">
+<Value>Religion</Value>
+</Value>
+<Value name="10">
+<Value>Gender</Value>
+</Value>
+<Value name="11">
+<Value>MaritalStatus</Value>
+</Value>
+<Value name="12">
+<Value>EthnicGroup</Value>
+</Value>
+<Value name="13">
+<Value>Occupation</Value>
+</Value>
+<Value name="14">
+<Value>DOB</Value>
+</Value>
+<Value name="15">
+<Value>Address</Value>
+</Value>
+<Value name="16">
+<Value>PhoneNumber</Value>
+</Value>
+<Value name="17">
+<Value>SupportContacts</Value>
+</Value>
+<Value name="18">
+<Value>Employer</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.Common.XBlocks">
+<Super>%RegisteredObject</Super>
+<TimeChanged>65597,51151.2751</TimeChanged>
+<TimeCreated>65596,75288.032513</TimeCreated>
+
+<XData name="CopyXSL">
+<Data><![CDATA[
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+	<xsl:template match="/">
+		<xsl:copy-of select="*"/>
+	</xsl:template>
+</xsl:stylesheet>
+]]></Data>
+</XData>
+
+<XData name="C0001XSL">
+<Data><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 用于将C001对象xml转换为病历概要CDA -->
+<xsl:stylesheet version="1.0" xmlns="urn:hl7-org:v3" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:isc="http://extension-functions.intersystems.com" xmlns:exsl="http://exslt.org/common" xmlns:set="http://exslt.org/sets" exclude-result-prefixes="isc sdtc exsl set">
+	<xsl:include href="CDA-Support-Files/Export/Common/CDAHeader.xsl"/>
+	<xsl:include href="CDA-Support-Files/Export/Common/PatientInformation.xsl"/>
+	<xsl:include href="CDA-Support-Files/Export/Common/AuthorAuthenticatorCustodian.xsl"/>
+	<xsl:include href="CDA-Support-Files/Export/Common/Location.xsl"/>
+	<xsl:template match="/C0001">
+		<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:mif="urn:hl7-org:v3/mif" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<realmCode code="CN"/>
+			<typeId root="2.16.840.1.113883.1.3" extension="POCD_MT000040"/>
+			<templateId root="2.16.156.10011.2.1.1.21"/>
+			<!--文档流水号-->
+			<xsl:call-template name="DocumentUID"/>
+			<code code="C0001" codeSystem="2.16.156.10011.2.4" codeSystemName="卫生信息共享文档规范编码体系"/>
+			<title>病历概要</title>
+			<!--文档机器生成时间-->
+			<xsl:call-template name="effectiveTime"/>
+			<xsl:call-template name="Confidentiality"/>
+			<languageCode code="zh-CN"/>
+			<setId/>
+			<versionNumber/>
+			<!--PersonalInformation，the first two line give the same code in 53 documents -->
+			<recordTarget contextControlCode="OP" typeCode="RCT">
+				<patientRole classCode="PAT">
+					<xsl:apply-templates select="patient" mode="PatientNumber"/>
+					<xsl:apply-templates select="patient" mode="HealthCardNumber"/>
+					<xsl:apply-templates select="patient/address" mode="Address"/>
+					<xsl:apply-templates select="patient" mode="PhoneNumber"/>
+					<xsl:comment>患者基本信息</xsl:comment>
+					<patient classCode="PSN" determinerCode="INSTANCE">
+						<!--患者身份证号码，必选-->
+						<xsl:apply-templates select="patient" mode="nationalIdNumber"/>
+						<!--患者姓名，必选-->
+						<xsl:apply-templates select="patient" mode="Name"/>
+						<!-- 性别，必选 -->
+						<xsl:apply-templates select="patient" mode="Gender"/>
+						<!-- 出生时间1..1 -->
+						<xsl:apply-templates select="patient" mode="BirthTime"/>
+						<!-- 婚姻状况1..1 -->
+						<xsl:apply-templates select="patient" mode="MaritalStatus"/>
+						<!-- 民族1..1 -->
+						<xsl:apply-templates select="patient" mode="EthnicGroup"/>
+						<!--工作单位0..1, 要求名称电话-->
+						<xsl:apply-templates select="patient/employerOrganization" mode="Employer"/>
+						<!--职业0..1-->
+						<xsl:apply-templates select="patient" mode="Occupation"/>
+					</patient>
+				</patientRole>
+			</recordTarget>
+			<!--文档作者-->
+			<xsl:apply-templates select="author" mode="AuthorWithOrganization"/>
+			<!--保管机构</xsl:comment-->
+			<xsl:apply-templates select="custodian" mode="Custodian"/>
+			<!--联系人1..*-->
+			<xsl:apply-templates select="participants" mode="SupportContact"/>
+			<xsl:call-template name="relatedDocument"/>
+			<component>
+				<structuredBody>
+					<!--实验室检验章节-->
+					<component>
+						<section>
+							<code code="30954-2" displayName="STUDIES SUMMARY" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+							<text/>
+							<!--血型-->
+							<entry typeCode="COMP">
+								<organizer classCode="BATTERY" moodCode="EVN">
+									<statusCode/>
+									<!--ABO血型-->
+									<component typeCode="COMP" contextConductionInd="true">
+										<observation classCode="OBS" moodCode="EVN">
+											<code code="DE04.50.010.00" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+											<value xsi:type="CD" code="{DE04.50.010.00/value/code}" codeSystem="2.16.156.10011.2.3.1.250" codeSystemName="Rh(D)血型代码表" displayName="{DE04.50.010.00//value/displayName}"/>
+										</observation>
+									</component>
+									<!--Rh血型-->
+									<component typeCode="COMP" contextConductionInd="true">
+										<observation classCode="OBS" moodCode="EVN">
+											<code code="DE04.50.001.00" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+											<value xsi:type="CD" code="{DE04.50.001.00/value/code}" codeSystem="2.16.156.10011.2.3.1.85" codeSystemName="ABO血型代码表" displayName="{DE04.50.001.00//value/displayName}"/>
+										</observation>
+									</component>
+								</organizer>
+							</entry>
+						</section>
+					</component>
+					<!--既往史章节-->
+					<component>
+						<section>
+							<code code="11348-0" displayName="HISTORY OF PAST ILLNESS" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+							<text/>
+							<xsl:comment>既往史</xsl:comment>
+							<!--疾病史（含外伤）-->
+							<xsl:apply-templates select="DE02.10.026.00set/*" mode="IllnessHistory"/>
+							<!--传染病史-->
+							<xsl:apply-templates select="DE02.10.008.00set/*" mode="InfectiousDiseaseHistory"/>
+							<!--手术史条目-->
+							<xsl:apply-templates select="DE02.10.061.00set/*" mode="SurgeryHistory"/>
+							<!--婚育史条目-->
+							<xsl:apply-templates select="DE02.10.098.00set/*" mode="Obstericalhistory"/>
+						</section>
+					</component>
+					<!--输血章节-->
+					<xsl:if test="DE02.10.100.00">
+						<component>
+							<section>
+								<code code="56836-0" displayName="History of blood transfusion" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+								<text/>
+								<xsl:apply-templates select="DE02.10.100.00" mode="BloodTransfusionHistory"/>
+							</section>
+						</component>
+					</xsl:if>
+					<!--过敏史章节-->
+					<component>
+						<section>
+							<code code="48765-2" displayName="Allergies, adverse reactions, alerts" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+							<text/>
+							<!--过敏史条目-->
+							<xsl:apply-templates select="DE02.10.022.00set/*" mode="Allergy"/>
+						</section>
+					</component>
+					<!--预防接种史章节-->
+					<component>
+						<section>
+							<code code="11369-6" codeSystem="2.16.840.1.113883.6.1" displayName="HISTORYOF IMMUNIZATIONS" codeSystemName="LOINC"/>
+							<text/>
+							<xsl:apply-templates select="DE02.10.101.00set/*" mode="ImmunizationHistory"/>
+						</section>
+					</component>
+					<!--个人史章节-->
+					<component>
+						<section>
+							<code code="29762-2" displayName="Social history" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+							<text/>
+							<!--个人史条目-->
+							<xsl:apply-templates select="DE02.10.097.00" mode="SocialHistory"/>
+						</section>
+					</component>
+					<!--月经史章节-->
+					<xsl:if test="DE02.10.102.00">
+						<component>
+							<section>
+								<code code="49033-4" displayName="Menstrual History" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+								<text/>
+								<!--月经史条目-->
+								<xsl:apply-templates select="DE02.10.102.00" mode="MenstrualHistory"/>
+							</section>
+						</component>
+					</xsl:if>
+					<!--家族史章节-->
+					<component>
+						<section>
+							<code code="10157-6" displayName="HISTORY OF FAMILY MEMBER DISEASES" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+							<text/>
+							<xsl:apply-templates select="DE02.10.103.00set/*" mode="FamilyHistory"/>
+						</section>
+					</component>
+					<!--卫生事件章节-->
+					<component>
+						<section>
+							<code displayName="卫生事件"/>
+							<text/>
+							<!--科室名称 1..1-->
+							<entry>
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="DE08.10.026.00" displayName="医疗机构科室名称" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+									<value xsi:type="ST">
+										<xsl:value-of select="DE08.10.026.00/value"/>
+									</value>
+								</observation>
+							</entry>
+							<!--患者就诊类型 1..1-->
+							<entry>
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="DE02.01.060.00" displayName="患者类型代码" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+									<value xsi:type="CD" code="{DE02.01.060.00/value/code}" displayName="{DE02.01.060.00//value/displayName}" codeSystem="2.16.156.10011.2.3.1.271" codeSystemName="患者类型代码表"/>
+								</observation>
+							</entry>
+							<!--门急诊号1..1-->
+							<entry>
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="DE01.00.010.00" displayName="门（急）诊号" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+									<value xsi:type="ST">
+										<xsl:value-of select="DE01.00.010.00/value"/>
+									</value>
+								</observation>
+							</entry>
+							<!--住院号及出入院日期时间 0..1-->
+							<xsl:if test="DE01.00.014.00">
+								<entry>
+									<observation classCode="OBS" moodCode="EVN">
+										<code code="DE01.00.014.00" displayName="住院号" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+										<value xsi:type="ST">
+											<xsl:value-of select="DE01.00.014.00/value"/>
+										</value>
+									</observation>
+								</entry>
+								<entry>
+									<organizer classCode="BATTERY" moodCode="EVN">
+										<statusCode/>
+										<component>
+											<observation classCode="OBS" moodCode="EVN">
+												<code code="DE06.00.092.00" displayName="入院日期" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+												<value xsi:type="ST">
+													<xsl:value-of select="DE06.00.092.00/value"/>
+												</value>
+											</observation>
+										</component>
+										<component>
+											<observation classCode="OBS" moodCode="EVN">
+												<code code="DE06.00.017.00" displayName="出院日期" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+												<value xsi:type="ST">
+													<xsl:value-of select="DE06.00.017.00/value"/>
+												</value>
+											</observation>
+										</component>
+									</organizer>
+								</entry>
+							</xsl:if>
+							<entry>
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="DE04.01.018.00" displayName="发病日期时间" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+									<value xsi:type="TS" value="20121202123422"/>
+								</observation>
+							</entry>
+							<!--就诊原因0..1-->
+							<xsl:if test="DE05.10.053.00">
+								<entry>
+									<observation classCode="OBS" moodCode="EVN">
+										<code code="DE05.10.053.00" displayName="就诊原因" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+										<!--就诊日期时间 DE06.00.062.00-->
+										<effectiveTime value="20130202123422"/>
+										<value xsi:type="ST">
+											<xsl:value-of select="DE06.00.062.00/value"/>
+										</value>
+									</observation>
+								</entry>
+							</xsl:if>
+							<!--西医诊断 1..*-->
+							<xsl:for-each select="PrimaryDiagnosises/PrimaryDiagnosis">
+								<entry>
+									<observation classCode="OBS" moodCode="EVN">
+										<code code="DE05.01.024.00" displayName="西医诊断编码" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录">
+											<qualifier>
+												<name displayName="西医诊断编码"/>
+											</qualifier>
+										</code>
+										<value xsi:type="CD" code="{DE05.01.024.00/value/code}" displayName="{DE05.01.024.00//value/displayName}" codeSystem="2.16.156.10011.2.3.3.11" codeSystemName="ICD-10"/>
+										<entryRelationship typeCode="COMP">
+											<observation classCode="OBS" moodCode="EVN">
+												<code code="DE05.10.113.00" displayName="病情转归代码" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+												<value xsi:type="CD" code="{DE05.10.113.00/value/code}" codeSystem="2.16.156.10011.2.3.1.148" codeSystemName="病情转归代码表" displayName="{DE05.10.113.00//value/displayName}"/>
+											</observation>
+										</entryRelationship>
+									</observation>
+								</entry>
+							</xsl:for-each>
+							<!--其他西医诊断 1..1-->
+							<entry>
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="DE05.01.024.00" displayName="其他西医诊断编码" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录">
+										<qualifier>
+											<name displayName="其他西医诊断编码"/>
+										</qualifier>
+									</code>
+									<value xsi:type="CD" code="{DE05.01.024.00/value/code}" displayName="{DE05.01.024.00//value/displayName}" codeSystem="2.16.156.10011.2.3.3.11" codeSystemName="ICD-10"/>
+								</observation>
+							</entry>
+							<!--中医病名代码 0..1-->
+							<xsl:for-each select="ZYdiagnosises/*">
+								<entry>
+									<observation classCode="OBS" moodCode="EVN">
+										<code code="DE05.10.130.00" displayName="中医病名代码" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录">
+											<qualifier>
+												<name displayName="中医病名代码"/>
+											</qualifier>
+										</code>
+										<value xsi:type="CD" code="{DE05.10.130.00/value/code}" displayName="{DE05.10.130.00//value/displayName}" codeSystem="2.16.156.10011.2.3.3.14" codeSystemName="中医病证分类与代码表( GB/T 15657)"/>
+										<entryRelationship typeCode="COMP">
+											<observation classCode="OBS" moodCode="EVN">
+												<code code="DE05.10.130.00" displayName="中医证候代码" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录">
+													<qualifier>
+														<name displayName="中医证候代码"/>
+													</qualifier>
+												</code>
+												<value xsi:type="CD" code="{DE05.10.130.00/value/code}" displayName="{DE05.10.130.00//value/displayName}" codeSystem="2.16.156.10011.2.3.3.14" codeSystemName="中医病证分类与代码表( GB/T 15657)"/>
+											</observation>
+										</entryRelationship>
+										<entryRelationship typeCode="COMP">
+											<observation classCode="OBS" moodCode="EVN">
+												<code code="DE05.10.113.00" displayName="病情转归代码" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+												<value xsi:type="CD" code="{DE05.10.113.00/value/code}" codeSystem="2.16.156.10011.2.3.1.148" codeSystemName="病情转归代码表" displayName="{DE05.10.113.00//value/displayName}"/>
+											</observation>
+										</entryRelationship>
+									</observation>
+								</entry>
+							</xsl:for-each>
+							<xsl:for-each select="DE06.00.093.00set/*">
+								<entry>
+									<procedure classCode="PROC" moodCode="EVN">
+										<!--手术及操作编码 DE06.00.093.00-->
+										<code code="{e09300/value}" codeSystem="2.16.156.10011.2.3.3.12" codeSystemName="手术(操作)代码表（ICD-9-CM）"/>
+									</procedure>
+								</entry>
+							</xsl:for-each>
+							<xsl:for-each select="Medications">
+								<entry>
+									<observation classCode="OBS" moodCode="EVN">
+										<code code="DE08.50.022.00" displayName="关键药物名称" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+										<value xsi:type="ST">
+											<xsl:value-of select="DE08.50.022.00/value"/>
+										</value>
+										<entryRelationship typeCode="COMP">
+											<observation classCode="OBS" moodCode="EVN">
+												<code code="DE06.00.136.00" displayName="关键药物用法" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+												<value xsi:type="ST">
+													<xsl:value-of select="DE06.00.136.00/value"/>
+												</value>
+											</observation>
+										</entryRelationship>
+										<entryRelationship typeCode="COMP">
+											<observation classCode="OBS" moodCode="EVN">
+												<code code="DE06.00.129.00" displayName="药物不良反应情况" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+												<value xsi:type="ST">
+													<xsl:value-of select="DE06.00.129.00/value"/>
+												</value>
+											</observation>
+										</entryRelationship>
+										<entryRelationship typeCode="COMP">
+											<observation classCode="OBS" moodCode="EVN">
+												<code code="DE06.00.164.00" displayName="中药使用类别代码" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+												<value xsi:type="CD" code="{DE06.00.164.00/value/code}" displayName="{DE06.00.164.00//value/displayName}" codeSystem="2.16.156.10011.2.3.1.157" codeSystemName="中药使用类别代码表"/>
+											</observation>
+										</entryRelationship>
+									</observation>
+								</entry>
+							</xsl:for-each>
+							<entry>
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="DE06.00.251.00" displayName="其他医学处置" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+									<value xsi:type="ST">
+										<xsl:value-of select="DE06.00.251.00/value"/>
+									</value>
+								</observation>
+							</entry>
+							<entry>
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="DE05.01.021.00" displayName="根本死因代码" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+									<value xsi:type="CD" code="{DE05.01.021.00/value/code}" displayName="{DE05.01.021.00//value/displayName}" codeSystem="2.16.156.10011.2.3.3.11" codeSystemName="ICD-10"/>
+								</observation>
+							</entry>
+							<entry>
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="DE02.01.039.00" displayName="责任医师姓名" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录"/>
+									<value xsi:type="ST">
+										<xsl:value-of select="DE02.01.039.00/value"/>
+									</value>
+								</observation>
+							</entry>
+							<!--费用条目1..1R-->
+							<entry>
+								<organizer classCode="CLUSTER" moodCode="EVN">
+									<statusCode/>
+									<component>
+										<observation classCode="OBS" moodCode="EVN">
+											<code code="DE02.01.044.00" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录" displayName="医疗保险类别代码"/>
+											<value xsi:type="CD" code="{DE02.01.044.00/value/code}" displayName="{DE02.01.044.00//value/displayName}" codeSystem="2.16.156.10011.2.3.1.248" codeSystemName="医疗保险类别代码表"/>
+										</observation>
+									</component>
+									<component>
+										<observation classCode="OBS" moodCode="EVN">
+											<code code="DE07.00.007.00" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录" displayName="医疗付费方式代码"/>
+											<value xsi:type="CD" code="{DE07.00.007.00/value/code}" displayName="{DE07.00.007.00//value/displayName}" codeSystem="2.16.156.10011.2.3.1.269" codeSystemName="医疗付费方式代码表"/>
+										</observation>
+									</component>
+									<!--门诊费用 1..1R-->
+									<component>
+										<observation classCode="OBS" moodCode="EVN">
+											<code code="DE07.00.004.00" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录" displayName="门诊费用金额"/>
+											<value xsi:type="MO" value="{DE07.00.004.00/value}" currency="元"/>
+										</observation>
+									</component>
+									<!--住院费用 0..1R2-->
+									<xsl:if test="DE07.00.010.00">
+										<component>
+											<observation classCode="OBS" moodCode="EVN">
+												<code code="DE07.00.010.00" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录" displayName="住院费用金额"/>
+												<value xsi:type="MO" value="{DE07.00.010.00/value}" currency="元"/>
+											</observation>
+										</component>
+									</xsl:if>
+									<!--个人承担费用 0..1R2-->
+									<component>
+										<observation classCode="OBS" moodCode="EVN">
+											<code code="DE07.00.001.00" codeSystem="2.16.156.10011.2.2.1" codeSystemName="卫生信息数据元目录" displayName="个人承担费用金额"/>
+											<value xsi:type="MO" value="{DE07.00.001.00/value}" currency="元"/>
+										</observation>
+									</component>
+								</organizer>
+							</entry>
+						</section>
+					</component>
+				</structuredBody>
+			</component>
+		</ClinicalDocument>
+	</xsl:template>
+</xsl:stylesheet>
+]]></Data>
+</XData>
+
+<XData name="C0001Sample">
+<Data><![CDATA[
+<C0001>
+	<createTime>2018-06-28 16:58:14</createTime>
+	<confidentialityCode>N</confidentialityCode>
+	<docCode>C0001</docCode>
+	<docUID>1234-1234-1234-1234</docUID>
+	<title>病历概要</title>
+	<patient>
+		<healthCardNumber>021043</healthCardNumber>
+		<patientNumber>111</patientNumber>
+		<name>王x祥</name>
+		<telcom>15175715266</telcom>
+		<address>
+			<streetName>城关镇王街村617号</streetName>
+			<province>河北</province>
+			<city>沧州</city>
+		</address>
+		
+		<nationalIdNumber>132923195011232817</nationalIdNumber>
+		<birthTime>19501123</birthTime>
+		<administrativeGender>
+			<value>
+				<code>1</code>
+				<displayName>男性</displayName>
+			</value>
+		</administrativeGender>
+		<ethnicGroup>
+			<value>
+				<code>1</code>
+				<displayName>汉族</displayName>
+			</value>
+			<maritalStatusCode>
+				<value>
+					<code>1</code>
+					<displayName>已婚</displayName>
+				</value>
+			</maritalStatusCode>
+			<employerOrganization>
+				<name>工作单位名称</name>
+				<identifier>444</identifier>
+			</employerOrganization>
+		</ethnicGroup>
+		<employerOrganization>
+			<name>县招待所</name>
+			<telcom>15175715266</telcom>
+		</employerOrganization>
+		<age>68</age>
+	</patient>
+	<author>
+		<id>3434343</id>
+		<name>李医生</name>
+		<representedOrganization>
+			<identifier>12345</identifier>
+			<name>周昆</name>
+		</representedOrganization>
+	</author>
+	<authenticator>
+		<professionalTechnicalPosition>主治医师</professionalTechnicalPosition>
+		<name>铁炉堡</name>
+		<isLegal>1</isLegal>
+	</authenticator>
+	<custodian>
+		<name>无锡中医院</name>
+		<id>1234</id>
+	</custodian>
+	<participants>
+		<participant>
+			<telecom>0332-202003243</telecom>
+			<name>李言</name>
+			<address>
+				<streetName>城关镇王街村617号</streetName>
+				<province>河北</province>
+				<city>沧州</city>
+			</address>
+		</participant>
+	</participants>
+	<DE04.50.001.00>
+		<value>
+			<code>2</code>
+			<displayName>阴性</displayName>
+		</value>
+	</DE04.50.001.00>
+	<DE04.50.010.00>
+		<value>
+			<code>1</code>
+			<displayName>A型</displayName>
+		</value>
+	</DE04.50.010.00>
+	<DE02.10.026.00set>
+		<e02600>
+			<value>患者既往有高血压病史10余年，痛风，输尿管结石多年，患者有长期门诊口服降压药.</value>
+		</e02600>
+	</DE02.10.026.00set>
+	<DE02.10.061.00set>
+		<e06100>
+			<value>1982年:阑尾切除手术 ，完全恢复，无随访</value>
+		</e06100>
+	</DE02.10.061.00set>
+	<DE02.10.098.00set>
+		<e09800>
+			<value>已婚已育，儿女均体健</value>
+		</e09800>
+	</DE02.10.098.00set>
+	<DE02.10.022.00set>
+		<e02200>
+			<value>过敏反应：青霉素――皮疹</value>
+		</e02200>
+	</DE02.10.022.00set>
+	<DE02.10.101.00set>
+		<e10100>
+			<value>乙肝疫苗</value>
+		</e10100>
+	</DE02.10.101.00set>
+	<DE02.10.097.00>
+		<value>个人史描述</value>
+	</DE02.10.097.00>
+	<DE02.10.103.00set>
+		<e10300>
+			<value>家族史描述一</value>
+		</e10300>
+	</DE02.10.103.00set>
+	<DE08.10.026.00>
+		<value>内分泌科</value>
+	</DE08.10.026.00>
+	<DE02.01.060.00>
+		<value>
+			<code>1</code>
+			<displayName>门诊</displayName>
+		</value>
+	</DE02.01.060.00>
+	<DE01.00.010.00/>
+	<PrimaryDiagnosises>
+		<PrimaryDiagnosis>
+			<DE05.01.024.00>
+				<value>
+					<code>E10.901</code>
+					<displayName>胰岛素依赖型糖尿病</displayName>
+				</value>
+			</DE05.01.024.00>
+			<DE05.10.113.00>
+				<value>
+					<code>1</code>
+					<displayName>治愈</displayName>
+				</value>
+			</DE05.10.113.00>
+		</PrimaryDiagnosis>
+	</PrimaryDiagnosises>
+	<ZYdiagnosises>
+		<ZYDiagnosis>
+			<DE05.10.130.00>
+				<value>
+					<code>BEA</code>
+					<displayName>儿科癌病类</displayName>
+				</value>
+			</DE05.10.130.00>
+		</ZYDiagnosis>
+	</ZYdiagnosises>
+	<DE07.00.007.00>
+		<value>
+			<code>1</code>
+			<displayName>自费</displayName>
+		</value>
+	</DE07.00.007.00>
+	<DE07.00.004.00>
+		<value>100</value>
+	</DE07.00.004.00>
+	<DE07.00.001.00>
+		<value>20</value>
+	</DE07.00.001.00>
+</C0001>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.Util.FunctionSet">
+<Description>
+我自己的Functions, 可以用于DT和Rule, 用在其他的地方必须写code</Description>
+<Super>Ens.Rule.FunctionSet</Super>
+<TimeChanged>65594,37759.727297</TimeChanged>
+<TimeCreated>64550,56654.294733</TimeCreated>
+
+<Method name="hello">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>a:%String</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	quit a_"sdfa"
+]]></Implementation>
+</Method>
+
+<Method name="XSLT">
+<Description>
+对XML Stream进行XSLT转换。中文还有问题。</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pInput:%Stream.GlobalCharacter,XSLFile:%String="c:\Temp"</FormalSpec>
+<ReturnType>%Stream.GlobalCharacter</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=##class(%XML.XSLT.CompiledStyleSheet).CreateFromFile(XSLFile,.tXSL)
+	w "000",!
+	if $$$ISERR(tSC) 
+	{
+        		do $System.Status.DisplayError(tSC) 
+        		quit $$$ERROR($$$GeneralError, "Cant create stylesheet ")
+   	 }
+   	 //在有中文输入时：如果不先将pInput转换， 执行%XML.XSLT.Transformer时会出现错误，出来的stream就是空的。
+   	 ///那么转换用在DT里Target中的stream是空的，
+   	 //如果直接对pInput转换，执行%XML.XSLT.Transformer.TransformStream会把stream读完，这时候AtEnd就是1了， 已经在
+   	 ///terminal里做了测试， 结果是跟踪里面从BS到BP中流显示是空的
+   	 ///因此必须把流copy出来转换。
+   	 ///问题是： 为什么其他的测试，包括用BPL, 输入中文不用转码就能做xslt,只是输出显示乱码而已
+   	 set tmp=##class(%Stream.GlobalCharacter).%New()
+   	 do tmp.CopyFrom(pInput)
+   	 do ..toUTF8Input(tmp)
+   	set tOutput=##class(%Stream.GlobalCharacter).%New()
+   	 Set tSC=##class(%XML.XSLT.Transformer).TransformStreamWithCompiledXSL(tmp,tXSL,.tOutput )
+       			If $$$ISERR(tSC) Quit tSC
+  	Quit tOutput
+]]></Implementation>
+</Method>
+
+<Method name="toUTF8">
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[&tOutput:%GlobalCharacterStream]]></FormalSpec>
+<Implementation><![CDATA[
+	Set tLen=3600000, tStreamBuffer="",tTempString=""
+	Do tOutput.Rewind()
+	While tLen>0
+		{
+			Set tTempString= tOutput.Read(.tLen,.tSC) 
+			Set tTempString= $ZCVT(tTempString,"I","UTF8",handler)
+			set tTempString=$REPLACE(tTempString,"&lt;","<")
+			set tTempString=$REPLACE(tTempString,"&gt;",">")
+			Set tStreamBuffer = tStreamBuffer_tTempString
+		}
+		Do tOutput.Clear()
+		Do tOutput.Write(tStreamBuffer)
+]]></Implementation>
+</Method>
+
+<Method name="toUTF8Input">
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[&tOutput:%GlobalCharacterStream]]></FormalSpec>
+<Implementation><![CDATA[
+	Set tLen=3600000, tStreamBuffer="",tTempString=""
+	Do tOutput.Rewind()
+	While tLen>0
+		{
+			Set tTempString= tOutput.Read(.tLen,.tSC) 
+			Set tTempString= $ZCVT(tTempString,"I","UTF8",handler)
+			set tTempString=$REPLACE(tTempString,"&lt;","<")
+			set tTempString=$REPLACE(tTempString,"&gt;",">")
+			Set tStreamBuffer = tStreamBuffer_tTempString
+		}
+		Do tOutput.Clear()
+		Do tOutput.Write(tStreamBuffer)
+]]></Implementation>
+</Method>
+
+<Method name="GetAge">
+<Description>
+以生日计算年龄</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>DOB:%String</FormalSpec>
+<ReturnType>%Integer</ReturnType>
+<Implementation><![CDATA[ quit ((+$H-$ZDTH(DOB,8)) \ 365.25)
+]]></Implementation>
+</Method>
+
+<Method name="String2Stream">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>Code:%String</FormalSpec>
+<ReturnType>%Stream.GlobalCharacter</ReturnType>
+<Implementation><![CDATA[
+	set tStream=##class(%Stream.GlobalCharacter).%New()
+	do tStream.Write(Code)
+	do tStream.Rewind()
+	quit tStream
+]]></Implementation>
+</Method>
+
+<Method name="zGetBusinessPartnerEmail">
+<Description>
+Get the business partner email address of the given component</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>ComponentName:%String</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set tBusPartnerName = ##class(Ens.Director).GetHostSettingValue(ComponentName,"BusinessPartner")
+	set tBusPartner = ##class(Ens.Config.BusinessPartner).%OpenId(tBusPartnerName)
+	Set tEmail = tBusPartner.PrimaryContact.Email
+	Quit tEmail
+]]></Implementation>
+</Method>
+
+<Method name="zIsCurrentTimeWithinRange">
+<Description>
+Returns a 1 if the current time is within the range of the two times given as arguments. Times should be in HH:MM:SS format</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>BeginTime:%String,EndTime:%String</FormalSpec>
+<ReturnType>%Boolean</ReturnType>
+<Implementation><![CDATA[
+	Set tBeginTimeH = $ZTIMEH(BeginTime)
+	Set tEndTimeH = $ZTIMEH(EndTime)
+	set tCurrentTimeH = $Piece($H,",",2)
+	If (tBeginTimeH < tCurrentTimeH)&&(tCurrentTimeH < tEndTimeH){
+		Quit 1	
+	}
+	Else {
+		Quit 0
+	}
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="SEDemo.Util.JSONToXML">
+<Super>%RegisteredObject</Super>
+<TimeChanged>65279,62116.621306</TimeChanged>
+<TimeCreated>65278,82073.235852</TimeCreated>
+
+<Method name="Test">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+    Set tSC = $System.Status.OK()
+    Try
+    {
+        Set oJSON={"Prop1":"Value1","Prop2":2}
+        Set tSC = ..JSONToXML(oJSON.%ToJSON(), "Test1", .tXML1)
+        Quit:$System.Status.IsError(tSC)
+        Write tXML1
+        
+        Write !!
+        Set oJSON2={"Prop1":"Value1","Prop2":2,"List":["Item1","Item2","Item3"]}
+        Set tSC = ..JSONToXML(oJSON2.%ToJSON(), "Test2", .tXML2)
+        Quit:$System.Status.IsError(tSC)
+        Write tXML2
+        
+        Write !!
+        Set oJSON3={
+                "name":"John",
+                "age":30,
+                "cars": [
+                    { "name":"Ford", "models":[ "Fiesta", "Focus", "Mustang" ] },
+                    { "name":"BMW", "models":[ "320", "X3", "X5" ] },
+                    { "name":"Fiat", "models":[ "500", "Panda" ] }
+                ]
+             }
+        Set tSC = ..JSONToXML(oJSON3.%ToJSON(), "Test3", .tXML3)
+        Quit:$System.Status.IsError(tSC)
+        Write tXML3
+
+    }
+    Catch (oException)
+    {
+        Set tSC =oException.AsStatus()
+    }
+    
+    Do $System.Status.DisplayError(tSC)
+]]></Implementation>
+</Method>
+
+<Method name="Test2">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+    Set tSC = $System.Status.OK()
+    Try
+    {
+        Set oJSON3={
+	"Request": {
+		"Head": {
+			"Version": "1.1",
+			"TransferType": "Sync",
+			"Callback": "http://192.168.100.1/his/api",
+			"TranCode": "REG0201",
+			"LicId": "LicId-1",
+			"ContentType": "text/json",
+			"ContentEncoding": "gzip",
+			"OrgId": "orgId-1",
+			"AppId": "appid-1",
+			"RecOrgId": "RecOrgId-1",
+			"RecAppId": "RecAppId-1",
+			"MessageId": "messageid-1",
+			"AppType": "PC",
+			"SecurityPolicy": "AES",
+			"SecurityContent": "[可空]加密策略需要的内容(如公钥)",
+			"Timestamp": "2017-03-23 14:22:49.727"
+		},
+		"Body": {
+			"Event": {
+				"RecordDatetime": "事件发生日期",
+				"Operator": {
+					"IDNumber": "操作者工号",
+					"Name": "操作者姓名",
+					"Department": {
+						"Identifier": "操作者所属科室代码",
+						"Text": "操作者所属科室名称"
+					},
+					"Ward": {
+						"Identifier": "操作者所在病区代码",
+						"Text": "操作者所在病区名称"
+					}
+				},
+				"EventCode": {
+					"Identifier": "事件代码(见闭环服务代码)",
+					"Text": "事件名称"
+				}
+			},
+			"Demography": {
+				"PatientIdentifierList": [{
+						"IDNumber": "111",
+						"IDType": "PatientID"
+					},
+					{
+						"IDNumber": "病历号",
+						"IDType": "MedicalRecordNo"
+					},
+					{
+						"IDNumber": "cardno-111",
+						"IDType": "CardNo"
+					}
+				],
+				"PatientName": "患者姓名",
+				"Birthday": "患者出生日期(yyyy-MM-dd HH:mm:ss)",
+				"Sex": {
+					"Identifier": "性别代码",
+					"Text": "性别名称"
+				},
+				"SSN": "身份证号",
+				"SecurityLevel": "保密级别"
+			},
+			"PatientVisit": {
+				"PatientClass": "就诊类型",
+				"VisitNumber": "就诊流水号(挂号序号)",
+				"AdmissionType": "挂号类别",
+				"PatientLocation": {
+					"Department": {
+						"Identifier": "就诊科室代码",
+						"Text": "就诊科室名称"
+					}
+				},
+				"VisitStatus": {
+					"Identifier": "就诊状态代码",
+					"Text": "就诊状态名称"
+				},
+				"InsuranceClass": {
+					"Identifier": "医疗保险类别代码",
+					"Text": "医疗保险类别名称"
+				},
+				"ReAdmissionIndicator": "初复诊标志",
+				"VisitCount": "就诊次数",
+				"SpecificIndicator": "特需标志",
+				"AdmitReason": "就诊原因描述",
+				"TreatmentGroup": [{
+					"Person": {
+						"IDNumber": "医生代码",
+						"Name": "医生姓名",
+						"Role": {
+							"Identifier": "2306",
+							"Text": "接诊医生"
+						},
+						"Department": {
+							"Identifier": "科室代码",
+							"Text": "科室名称"
+						}
+					}
+				}]
+			}
+		}
+	}
+	}
+        
+        w "source:   ",!
+        w oJSON3.%ToJSON()
+        Set tSC = ..JSONToXML(oJSON3.%ToJSON(), "Test3", .tXML3)
+        
+        Quit:$System.Status.IsError(tSC)
+        Write tXML3
+
+    }
+    Catch (oException)
+    {
+        Set tSC =oException.AsStatus()
+    }
+    
+    Do $System.Status.DisplayError(tSC)
+]]></Implementation>
+</Method>
+
+<Method name="JSONToXML">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pJSONString:%String,pRootElementName:%String,*pXMLString:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+        Set tSC = $System.Status.OK()
+        Try
+        {
+            Set oJSON = ##class(%Library.DynamicObject).%FromJSON(pJSONString)
+            
+            Set pXMLString="<?xml version=""1.0"" encoding=""utf-8""?>"_$C(13,10)
+            Set pXMLString=pXMLString_"<"_pRootElementName_">"_$C(13,10)
+            
+            Set tSC = ..ConvertFromJSONObjectToXMLString(oJSON, .pXMLString)
+            Quit:$System.Status.IsError(tSC)
+            
+            Set pXMLString=pXMLString_"</"_pRootElementName_">"_$C(13,10)
+        }
+        Catch (oException)
+        {
+            Set tSC = oException.AsStatus()
+        }
+        
+        Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="ConvertFromJSONObjectToXMLString">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pJSONObject:%Library.DynamicAbstractObject,*pXMLString:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+        Set tSC = $System.Status.OK()
+        Try
+        {
+            Set iterator = pJSONObject.%GetIterator()
+            
+            While iterator.%GetNext(.key, .value)
+            {
+                Set tXMLKey=$TR(key," ")
+                Set pXMLString=pXMLString_"<"_tXMLKey_">"
+                
+                If value'=""
+                {
+                    If '$IsObject(value)
+                    {
+                        Set pXMLString=pXMLString_value
+                    }
+                    Else
+                    {
+                        Set pXMLString=pXMLString_$C(13,10)
+                        If value.%ClassName()="%DynamicObject"
+                        {
+                            Set tSC = ..ConvertFromJSONObjectToXMLString(value, .pXMLString)
+                            Quit:$System.Status.IsError(tSC)                            
+                        }
+                        ElseIf value.%ClassName()="%DynamicArray"
+                        {
+                            Set arrayIterator = value.%GetIterator()
+                                        
+                            While arrayIterator.%GetNext(.arrayKey, .arrayValue)
+                            {
+                                Set pXMLString=pXMLString_"<"_tXMLKey_"Item key="""_arrayKey_""">"
+                                If '$IsObject(arrayValue)
+                                {
+                                    Set pXMLString=pXMLString_arrayValue
+                                }
+                                Else
+                                {                                    
+                                    Set tSC = ..ConvertFromJSONObjectToXMLString(arrayValue, .pXMLString)
+                                    Quit:$System.Status.IsError(tSC)                            
+                                }
+                                Set pXMLString=pXMLString_"</"_tXMLKey_"Item>"_$C(13,10)
+                            }
+                            Quit:$System.Status.IsError(tSC)
+                        }
+                    }
+                }
+                
+                Set pXMLString=pXMLString_"</"_tXMLKey_">"_$C(13,10)
+            } //While
+        }
+        Catch (oException)
+        {
+            Set tSC = oException.AsStatus()
+        }
+        
+        Quit tSC
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="SEDemo.Util.JSONToXML2">
+<Description>
+this XSLT may not work well for complicated JSON 
+https://stackoverflow.com/questions/13007280/how-to-convert-json-to-xml-using-xslt</Description>
+<Super>Ens.Rule.FunctionSet</Super>
+<TimeChanged>65279,62286.673826</TimeChanged>
+<TimeCreated>64550,56654.294733</TimeCreated>
+
+<Method name="Convert">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pInput:%Stream.Object</FormalSpec>
+<ReturnType>%Stream.GlobalCharacter</ReturnType>
+<Implementation><![CDATA[
+    set xslt = ..GetXData("JSON2XML")
+    #dim result As %Stream.Object
+    set sc = ##class(%XML.XSLT.Transformer).TransformStream(source, xslt, .result)
+    
+    do result.OutputToDevice()
+]]></Implementation>
+</Method>
+
+<Method name="GetXData">
+<ClassMethod>1</ClassMethod>
+<CodeMode>expression</CodeMode>
+<FormalSpec>name</FormalSpec>
+<ReturnType>%Stream.TmpCharacter</ReturnType>
+<Implementation><![CDATA[##class(%Dictionary.XDataDefinition).IDKEYOpen($classname(), name).Data
+]]></Implementation>
+</Method>
+
+<XData name="JSON2XML">
+<Description>
+https://stackoverflow.com/questions/13007280/how-to-convert-json-to-xml-using-xslt</Description>
+<Data><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:json="http://www.ibm.com/xmlns/prod/2009/jsonx" xmlns:exsl="http://exslt.org/common" xmlns:so="http://stackoverflow.com/questions/13007280" exclude-result-prefixes="xsl xs json so exsl">
+	<xsl:output indent="yes" encoding="UTF-8"/>
+	<xsl:strip-space elements="*"/>
+	<xsl:variable name="quot" select="'&quot;'"/>
+	<xsl:variable name="numbers" select="'0123456789'"/>
+	<xsl:variable name="booleans" select="'tf'"/>
+	<xsl:template match="/*">
+		<xsl:variable name="t1">
+			<xsl:call-template name="object">
+				<xsl:with-param name="json-in" select="."/>
+			</xsl:call-template>
+		</xsl:variable>
+		<xsl:apply-templates select="exsl:node-set($t1)/so:output/*" mode="copy-sans-namespace"/>
+	</xsl:template>
+	<xsl:template match="*" mode="copy-sans-namespace">
+		<xsl:element name="{name()}" namespace="{namespace-uri()}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="copy-sans-namespace"/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template name="field">
+		<!-- Input like: "Open": "25.15" bla -->
+		<!-- output like: <so:output><Open>25.15</Open></so:output> <so:extra>bla</so:extra> -->
+		<xsl:param name="json-in"/>
+		<xsl:variable name="field-name" select="substring-before(substring-after($json-in,$quot),$quot)"/>
+		<xsl:variable name="remainder" select="substring-after($json-in,':')"/>
+		<xsl:call-template name="value">
+			<xsl:with-param name="json-in" select="$remainder"/>
+			<xsl:with-param name="parent-ele" select="$field-name"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="fields">
+		<xsl:param name="json-in"/>
+		<xsl:variable name="n" select="normalize-space($json-in)"/>
+		<xsl:choose>
+			<xsl:when test="substring($n,1,1) = $quot">
+				<xsl:variable name="t1">
+					<xsl:call-template name="field">
+						<xsl:with-param name="json-in" select="$n"/>
+					</xsl:call-template>
+				</xsl:variable>
+				<xsl:variable name="t2" select="normalize-space( exsl:node-set($t1)/so:extra) "/>
+				<xsl:variable name="t3">
+					<xsl:choose>
+						<xsl:when test="substring($t2,1,1)=','">
+							<xsl:call-template name="fields">
+								<xsl:with-param name="json-in" select="substring-after($t2,',')"/>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:when test="$t2">
+							<so:extra>
+								<xsl:value-of select="$t2"/>
+							</so:extra>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:variable>
+				<so:output>
+					<xsl:copy-of select="exsl:node-set($t1)/so:output/* | exsl:node-set($t3)/so:output/*"/>
+				</so:output>
+				<xsl:copy-of select="exsl:node-set($t3)/so:extra"/>
+			</xsl:when>
+			<xsl:when test="$n">
+				<so:extra>
+					<xsl:value-of select="$n"/>
+				</so:extra>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template name="object">
+		<!-- Input like: { X } bla -->
+		<!-- output like: <so:output>fields(X)</so:output> <so:extra>bla</so:extra> -->
+		<xsl:param name="json-in"/>
+		<xsl:param name="parent-ele" select="''"/>
+		<xsl:variable name="t1" select="normalize-space(substring-after($json-in,'{'))"/>
+		<xsl:variable name="t2">
+			<xsl:call-template name="fields">
+				<xsl:with-param name="json-in" select="$t1"/>
+			</xsl:call-template>
+		</xsl:variable>
+		<xsl:variable name="t3" select="normalize-space(substring-after( exsl:node-set($t2)/so:extra, '}'))"/>
+		<so:output>
+			<xsl:choose>
+				<xsl:when test="$parent-ele">
+					<xsl:element name="{$parent-ele}">
+						<xsl:copy-of select="exsl:node-set($t2)/so:output/node()"/>
+					</xsl:element>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:copy-of select="exsl:node-set($t2)/so:output/node()"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</so:output>
+		<xsl:if test="$t3">
+			<so:extra>
+				<xsl:value-of select="$t3"/>
+			</so:extra>
+		</xsl:if>
+	</xsl:template>
+	<xsl:template name="objects">
+		<xsl:param name="json-in"/>
+		<xsl:param name="parent-ele"/>
+		<xsl:variable name="n" select="normalize-space($json-in)"/>
+		<xsl:choose>
+			<xsl:when test="substring($n,1,1) = '{'">
+				<xsl:variable name="t1">
+					<xsl:call-template name="object">
+						<xsl:with-param name="json-in" select="$n"/>
+						<xsl:with-param name="parent-ele" select="$parent-ele"/>
+					</xsl:call-template>
+				</xsl:variable>
+				<xsl:variable name="t2" select="normalize-space( exsl:node-set($t1)/so:extra) "/>
+				<xsl:variable name="t3">
+					<xsl:choose>
+						<xsl:when test="substring($t2,1,1)='{'">
+							<xsl:call-template name="objects">
+								<xsl:with-param name="json-in" select="$t2"/>
+								<xsl:with-param name="parent-ele" select="$parent-ele"/>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:when test="substring($t2,1,1)=',' and substring(normalize-space(substring-after($t2,',')),1,1)='{'">
+							<xsl:call-template name="objects">
+								<xsl:with-param name="json-in" select="normalize-space(substring-after($t2,','))"/>
+								<xsl:with-param name="parent-ele" select="$parent-ele"/>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:when test="$t2">
+							<so:extra>
+								<xsl:value-of select="$t2"/>
+							</so:extra>
+						</xsl:when>
+					</xsl:choose>
+				</xsl:variable>
+				<so:output>
+					<xsl:copy-of select="exsl:node-set($t1)/so:output/* | exsl:node-set($t3)/so:output/*"/>
+				</so:output>
+				<xsl:copy-of select="exsl:node-set($t3)/so:extra"/>
+			</xsl:when>
+			<xsl:when test="$n">
+				<so:extra>
+					<xsl:value-of select="$n"/>
+				</so:extra>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template name="array">
+		<xsl:param name="json-in"/>
+		<xsl:param name="parent-ele"/>
+		<xsl:variable name="t1" select="normalize-space(substring-after($json-in,'['))"/>
+		<xsl:variable name="t2">
+			<xsl:call-template name="objects">
+				<xsl:with-param name="json-in" select="$t1"/>
+				<xsl:with-param name="parent-ele" select="$parent-ele"/>
+			</xsl:call-template>
+		</xsl:variable>
+		<xsl:variable name="t3">
+			<xsl:choose>
+				<xsl:when test="contains(substring-before(exsl:node-set($t2)/so:extra,']'),',')">
+					<xsl:value-of select="normalize-space(substring-after(exsl:node-set($t2)/so:extra,','))"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(substring-after(exsl:node-set($t2)/so:extra,']'))"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="t4">
+			<xsl:element name="{$parent-ele}">
+				<xsl:for-each select="$t2/so:output/*[local-name(.)=$parent-ele]">
+					<xsl:variable name="self" select="."/>
+					<xsl:variable name="tempResult">
+						<xsl:element name="{concat($parent-ele,'_element')}">
+							<xsl:copy-of select="exsl:node-set($self/*)"/>
+						</xsl:element>
+					</xsl:variable>
+					<xsl:copy-of select="exsl:node-set($tempResult)"/>
+				</xsl:for-each>
+			</xsl:element>
+		</xsl:variable>
+		<xsl:variable name="t5" select="exsl:node-set($t4)"/>
+		<so:output>
+			<xsl:copy-of select="$t5"/>
+		</so:output>
+		<xsl:if test="$t3">
+			<so:extra>
+				<xsl:value-of select="$t3"/>
+			</so:extra>
+		</xsl:if>
+	</xsl:template>
+	<xsl:template name="value">
+		<!-- Input like either array, object or string -->
+		<!-- output like either array, object or string -->
+		<xsl:param name="json-in"/>
+		<xsl:param name="parent-ele"/>
+		<xsl:variable name="first-letter" select="substring(normalize-space($json-in),1,1)"/>
+		<xsl:choose>
+			<xsl:when test="$first-letter='{'">
+				<xsl:call-template name="object">
+					<xsl:with-param name="json-in" select="$json-in"/>
+					<xsl:with-param name="parent-ele" select="$parent-ele"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$first-letter='['">
+				<xsl:call-template name="array">
+					<xsl:with-param name="json-in" select="$json-in"/>
+					<xsl:with-param name="parent-ele" select="$parent-ele"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$first-letter=$quot">
+				<xsl:call-template name="string">
+					<xsl:with-param name="json-in" select="$json-in"/>
+					<xsl:with-param name="parent-ele" select="$parent-ele"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="contains($numbers,$first-letter)">
+				<xsl:call-template name="number">
+					<xsl:with-param name="json-in" select="$json-in"/>
+					<xsl:with-param name="parent-ele" select="$parent-ele"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="contains($booleans,$first-letter)">
+				<xsl:call-template name="boolean">
+					<xsl:with-param name="json-in" select="$json-in"/>
+					<xsl:with-param name="parent-ele" select="$parent-ele"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<so:output>ERROR</so:output>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template name="string">
+		<xsl:param name="json-in"/>
+		<xsl:param name="parent-ele"/>
+		<xsl:variable name="value" select="substring-before(substring-after($json-in,$quot),$quot)"/>
+		<xsl:variable name="remainder" select="normalize-space(substring-after(substring-after($json-in,$quot),$quot))"/>
+		<so:output>
+			<xsl:element name="{$parent-ele}">
+				<xsl:value-of select="$value"/>
+			</xsl:element>
+		</so:output>
+		<xsl:if test="$remainder">
+			<so:extra>
+				<xsl:value-of select="$remainder"/>
+			</so:extra>
+		</xsl:if>
+	</xsl:template>
+	<xsl:template name="number">
+		<!-- Input like: "X" bla -->
+		<!-- output like: <so:output><Y>X</Y></so:output> <so:extra>bla</so:extra> -->
+		<xsl:param name="json-in"/>
+		<xsl:param name="parent-ele"/>
+		<xsl:variable name="value">
+			<xsl:choose>
+				<xsl:when test="contains(substring-before($json-in,','),'}')">
+					<xsl:value-of select="normalize-space(substring-before($json-in,'}'))"/>
+				</xsl:when>
+				<xsl:when test="contains(substring-before($json-in,','),']')">
+					<xsl:value-of select="normalize-space(substring-before($json-in,']'))"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(substring-before($json-in,','))"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="remainder">
+			<xsl:choose>
+				<xsl:when test="contains(substring-before($json-in,','),'}')">
+					<xsl:value-of select="concat('}',normalize-space(substring-after($json-in,'}')))"/>
+				</xsl:when>
+				<xsl:when test="contains(substring-before($json-in,','),']')">
+					<xsl:value-of select="concat(']',normalize-space(substring-after($json-in,']')))"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="concat(',',normalize-space(substring-after($json-in,',')))"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<so:output>
+			<xsl:element name="{$parent-ele}">
+				<xsl:value-of select="$value"/>
+			</xsl:element>
+		</so:output>
+		<xsl:if test="$remainder">
+			<so:extra>
+				<xsl:value-of select="$remainder"/>
+			</so:extra>
+		</xsl:if>
+	</xsl:template>
+	<xsl:template name="boolean">
+		<!-- Input like: "X" bla -->
+		<!-- output like: <so:output><Y>X</Y></so:output> <so:extra>bla</so:extra> -->
+		<xsl:param name="json-in"/>
+		<xsl:param name="parent-ele"/>
+		<xsl:variable name="value">
+			<xsl:choose>
+				<xsl:when test="contains(substring-before($json-in,','),'}')">
+					<xsl:value-of select="normalize-space(substring-before($json-in,'}'))"/>
+				</xsl:when>
+				<xsl:when test="contains(substring-before($json-in,','),']')">
+					<xsl:value-of select="normalize-space(substring-before($json-in,']'))"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(substring-before($json-in,','))"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="remainder">
+			<xsl:choose>
+				<xsl:when test="contains(substring-before($json-in,','),'}')">
+					<xsl:value-of select="concat('}',normalize-space(substring-after($json-in,'}')))"/>
+				</xsl:when>
+				<xsl:when test="contains(substring-before($json-in,','),']')">
+					<xsl:value-of select="concat(']',normalize-space(substring-after($json-in,']')))"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="concat(',',normalize-space(substring-after($json-in,',')))"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<so:output>
+			<xsl:element name="{$parent-ele}">
+				<xsl:value-of select="$value"/>
+			</xsl:element>
+		</so:output>
+		<xsl:if test="$remainder">
+			<so:extra>
+				<xsl:value-of select="$remainder"/>
+			</so:extra>
+		</xsl:if>
+	</xsl:template>
+</xsl:stylesheet>
+]]></Data>
+</XData>
+</Class>
+
+
+<Package name="SEDemo.Util" sqlname="SEDemo_Util"/>
+
+
+<Class name="SEDemo.Util.Stream">
+<Super>%RegisteredObject</Super>
+<TimeChanged>65287,78576.434895</TimeChanged>
+<TimeCreated>65279,36948.808905</TimeCreated>
+
+<Method name="toUTF8">
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[&tOutput:%GlobalCharacterStream]]></FormalSpec>
+<Implementation><![CDATA[
+	Set tLen=3600000, tStreamBuffer="",tTempString=""
+	Do tOutput.Rewind()
+	While tLen>0
+		{
+			Set tTempString= tOutput.Read(.tLen,.tSC) 
+			Set tTempString= $ZCVT(tTempString,"I","UTF8",handler)
+			set tTempString=$REPLACE(tTempString,"&lt;","<")
+			set tTempString=$REPLACE(tTempString,"&gt;",">")
+			Set tStreamBuffer = tStreamBuffer_tTempString
+		}
+		Do tOutput.Clear()
+		Do tOutput.Write(tStreamBuffer)
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="SEDemo.Util.XData">
+<Description>
+Copy frrom "https://community.intersystems.com/post/level-your-xdata"
+简化了打开XDATA的方法， Format可以使没有断行的XML好看， Save()用法还没想好。</Description>
+<Super>%RegisteredObject</Super>
+<TimeChanged>65279,62666.063753</TimeChanged>
+<TimeCreated>65279,62666.063753</TimeCreated>
+
+<Method name="Open">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pClassName:%String,pXDataName:%String,*pObject:%RegisteredObject</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    if '##class(%Dictionary.XDataDefinition).%Exists($listbuild(pClassName_"||"_pXDataName)) quit $$$ERROR($$$GeneralError,"Class or XData does not exist, ensure an XData block exists before opening it")
+    set xml=##class(%Dictionary.XDataDefinition).%OpenId(pClassName_"||"_pXDataName,-1,.sc) $$$QuitOnError(sc)
+    set header=xml.Data.Read(100)
+    do xml.Data.Rewind()
+    set className=$piece($piece(header,"className=""",2),"""")
+    set reader=##class(%XML.Reader).%New()
+    set sc=reader.OpenStream(xml.Data) $$$QuitOnError(sc)
+    do reader.Correlate("object",className)
+    do reader.Next(.pObject,.sc)
+    quit sc
+]]></Implementation>
+</Method>
+
+<Method name="Save">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pClassName:%String,pXDataName:%String,pObject:%RegisteredObject</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    //if ##class(Cogs.Lib.Dictionary).ClassExtends(pClassName,"%XML.Adaptor")=0 quit $$$ERROR($$$GeneralError,"Class containing XDATA must extend %XML.Adaptor")
+    if '##class(%Dictionary.XDataDefinition).%Exists($listbuild(pClassName_"||"_pXDataName)) quit $$$ERROR($$$GeneralError,"Class or XData does not exist, ensure an XData block exists before writting to it")
+    set xml=##class(%Dictionary.XDataDefinition).%OpenId(pClassName_"||"_pXDataName)
+    set attrs=1,attrs(1)="className",attrs(1,0)=pObject.%ClassName(1)
+    set sc=pObject.XMLExportToStream(.xmlStream,"object",,,.attrs) $$$QuitOnError(sc)
+    set sc=..Format(.xmlStream,.xmlStreamFormatted) $$$QuitOnError(sc)
+    set sc=xml.Data.CopyFrom(xmlStreamFormatted)  $$$QuitOnError(sc)
+    quit xml.%Save()
+]]></Implementation>
+</Method>
+
+<Method name="Format">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pXmlStream:%CharacterStream,*pXmlStreamFormatted:%CharacterStream</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set xslt=##class(%Dictionary.XDataDefinition).%OpenId(..%ClassName(1)_"||XSLT",-1,.sc)
+    quit ##class(%XML.XSLT.Transformer).TransformStream(pXmlStream,xslt.Data,.pXmlStreamFormatted)
+]]></Implementation>
+</Method>
+
+<XData name="XSLT">
+<Data><![CDATA[
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+ <xsl:output omit-xml-declaration="yes" indent="yes"/>
+ <xsl:strip-space elements="*"/>
+ <xsl:template match="node()|@*">
+  <xsl:copy>
+   <xsl:apply-templates select="node()|@*"/>
+  </xsl:copy>
+ </xsl:template>
+</xsl:stylesheet>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.Util.XML">
+<Description>
+什么东西</Description>
+<IncludeCode>%callout,%occSAX,%occXSLT,%syNLS</IncludeCode>
+<Super>%RegisteredObject</Super>
+<TimeChanged>65598,79890.35463</TimeChanged>
+<TimeCreated>65279,36948.808905</TimeCreated>
+
+<Method name="Format">
+<Description>
+可以使一行变成多行， 但没有办法加tab， 而且还有其他的问题，勉强使用，需要找找有没有好看的</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pXmlStream:%CharacterStream,*pXmlStreamFormatted:%CharacterStream</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    set xslt=##class(%Dictionary.XDataDefinition).%OpenId(..%ClassName(1)_"||XSLT",-1,.sc)
+    quit ##class(%XML.XSLT.Transformer).TransformStream(pXmlStream,xslt.Data,.pXmlStreamFormatted)
+]]></Implementation>
+</Method>
+
+<Method name="TestFormat">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	Set tSource=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||ExampleXML").Data
+        	set tSC=..Format(tSource, .tOutput)
+        	w tSC,!
+        	do tOutput.OutputToDevice()
+]]></Implementation>
+</Method>
+
+<Method name="DisplayXPathDOM">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pResults:%ListOfObjects(CLASSNAME="%XML.XPATH.Result")</FormalSpec>
+<Implementation><![CDATA[
+    For tI=1:1:pResults.Count()
+    {
+        Set tResult=pResults.GetAt(tI)
+        
+        if (tResult.Type=$$$XPATHDOM)
+        {
+            Write !,"XPATH DOM"
+            
+            While tResult.Read()
+            {   
+                If tResult.NodeType="element"
+                {
+                    Write !,tResult.NodeType,": ",tResult.Name  
+                    
+                    If tResult.HasAttributes {
+                        For tJ=1:1:tResult.AttributeCount
+                        {
+                            Do tResult.MoveToAttributeIndex(tJ)
+                            Write !,?9,tResult.NodeType,": ",tResult.Name,?25," Value: ",tResult.Value
+                        }
+                    }
+                } else {
+                    
+                    Write !,tResult.NodeType," : ",tResult.Name," Value: "
+                
+                    // Value can be a stream if result is greater than 32k in length
+                    Set tValue=tResult.Value
+                
+                    If $IsObject(tValue){
+                        Write ! Do tValue.OutputToDevice()
+                    } else {
+                        Write tValue
+                    }
+                }
+                Write !
+            }
+        } else {
+            
+            Write !,"XPATH VALUE",!
+            
+            Set tValue=tResult.Value
+            
+            // Test for value being a stream
+            If $IsObject(tValue){
+                Do tValue.OutputToDevice()
+            } else {
+                Write tValue
+            }
+        }
+    }
+]]></Implementation>
+</Method>
+
+<XData name="XSLT">
+<Data><![CDATA[
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:output omit-xml-declaration="yes" indent="yes"/>
+    <xsl:strip-space elements="*"/>
+    <xsl:template match="node()|@*">
+        <xsl:copy>
+            <xsl:apply-templates select="node()|@*"/>
+        </xsl:copy>
+    </xsl:template>
+</xsl:stylesheet>
+]]></Data>
+</XData>
+
+<XData name="ExampleXML">
+<Data><![CDATA[
+<staff>
+<doc type="GP"><name first="Myriam"          last="Midy">Ms. Midy</name>
+  <name first="Paul" last="Dick">Mr. Dick
+  </name>
+  <a><b><c>hello</c></b></a>
+</doc>
+</staff>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.Util.XMLToJSON">
+<Super>%RegisteredObject</Super>
+<TimeChanged>65279,62486.70956</TimeChanged>
+<TimeCreated>65279,36948.808905</TimeCreated>
+
+<Method name="GetXData">
+<ClassMethod>1</ClassMethod>
+<CodeMode>expression</CodeMode>
+<FormalSpec>name</FormalSpec>
+<ReturnType>%Stream.TmpCharacter</ReturnType>
+<Implementation><![CDATA[##class(%Dictionary.XDataDefinition).IDKEYOpen($classname(), name).Data
+]]></Implementation>
+</Method>
+
+<Method name="Convert">
+<Description>
+Convert Stream XML to JSON</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pInput:%Stream.Object</FormalSpec>
+<ReturnType>%Stream.Object</ReturnType>
+<Implementation><![CDATA[
+  Set tSC = $System.Status.OK()
+    Try
+    {	
+    	set xslt = ..GetXData("XML2JSON")
+    	set sc = ##class(%XML.XSLT.Transformer).TransformStream(pInput, xslt, .result)
+    	return result
+    }
+    Catch (oException)
+    {
+        Set tSC =oException.AsStatus()
+    }
+    
+    Do $System.Status.DisplayError(tSC)
+]]></Implementation>
+</Method>
+
+<Method name="Test">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	set source = ..GetXData("ExampleXML")
+    	set xslt = ..GetXData("XML2JSON")
+    	#dim result As %Stream.Object
+    	set sc = ##class(%XML.XSLT.Transformer).TransformStream(source, xslt, .result)
+    
+    	do result.OutputToDevice()
+]]></Implementation>
+</Method>
+
+<XData name="XML2JSON">
+<Description>
+来自https://stackoverflow.com/questions/24122921/xsl-to-convert-xml-to-json</Description>
+<Data><![CDATA[
+<?xml version="1.0"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:output method="text"/>
+	<xsl:template match="/">{
+    <xsl:apply-templates select="*"/>}
+</xsl:template>
+	<!-- Object or Element Property-->
+	<xsl:template match="*">
+    "<xsl:value-of select="name()"/>" :<xsl:call-template name="Properties">
+			<xsl:with-param name="parent" select="'Yes'"> </xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+	<!-- Array Element -->
+	<xsl:template match="*" mode="ArrayElement">
+		<xsl:call-template name="Properties"/>
+	</xsl:template>
+	<!-- Object Properties -->
+	<xsl:template name="Properties">
+		<xsl:param name="parent"/>
+		<xsl:variable name="childName" select="name(*[1])"/>
+		<xsl:choose>
+			<xsl:when test="not(*|@*)">
+				<xsl:choose>
+					<xsl:when test="$parent='Yes'">
+						<xsl:text>&quot;</xsl:text>
+						<xsl:value-of select="."/>
+						<xsl:text>&quot;</xsl:text>
+					</xsl:when>
+					<xsl:otherwise>"<xsl:value-of select="name()"/>":"<xsl:value-of select="."/>"</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="count(*[name()=$childName]) > 1">{ "<xsl:value-of select="$childName"/>" :[<xsl:apply-templates select="*" mode="ArrayElement"/>] }</xsl:when>
+			<xsl:otherwise>{
+            <xsl:apply-templates select="@*"/>
+				<xsl:apply-templates select="*"/>
+            }</xsl:otherwise>
+		</xsl:choose>
+		<xsl:if test="following-sibling::*">,</xsl:if>
+	</xsl:template>
+	<!-- Attribute Property -->
+	<xsl:template match="@*">"<xsl:value-of select="name()"/>" : "<xsl:value-of select="."/>",
+</xsl:template>
+</xsl:stylesheet>
+]]></Data>
+</XData>
+
+<XData name="ExampleXML">
+<Data><![CDATA[
+<staff>
+<doc type="GP">
+  <name first="Myriam" last="Midy">Ms. Midy</name>
+  <name first="Paul" last="Dick">Mr. Dick</name>
+</doc>
+</staff>
+]]></Data>
+</XData>
+
+<XData name="XML2JSON2">
+<Description>
+来自https://stackoverflow.com/questions/43355563/convert-xml-to-json-using-xslt</Description>
+<Data><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+	<xsl:template match="/">{
+        <xsl:apply-templates select="*"/>}
+    </xsl:template>
+	<!-- Object or Element Property-->
+	<xsl:template match="*">
+        "<xsl:value-of select="name()"/>" :<xsl:call-template name="Properties">
+			<xsl:with-param name="parent" select="'Yes'"> </xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+	<!-- Array Element -->
+	<xsl:template match="*" mode="ArrayElement">
+		<xsl:call-template name="Properties"/>
+	</xsl:template>
+	<!-- Object Properties -->
+	<xsl:template name="Properties">
+		<xsl:param name="parent"/>
+		<xsl:variable name="childName" select="name(*[1])"/>
+		<xsl:choose>
+			<xsl:when test="not(*|@*)">
+				<xsl:choose>
+					<xsl:when test="$parent='Yes'">
+						<xsl:text>&quot;</xsl:text>
+						<xsl:value-of select="."/>
+						<xsl:text>&quot;</xsl:text>
+					</xsl:when>
+					<xsl:otherwise>"<xsl:value-of select="name()"/>":"<xsl:value-of select="."/>"</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="count(*[name()=$childName]) > 1">{ "<xsl:value-of select="$childName"/>" :[<xsl:apply-templates select="*" mode="ArrayElement"/>] }</xsl:when>
+			<xsl:otherwise>{
+                <xsl:apply-templates select="@*"/>
+				<xsl:apply-templates select="*"/>
+                }</xsl:otherwise>
+		</xsl:choose>
+		<xsl:if test="following-sibling::*">,</xsl:if>
+	</xsl:template>
+	<!-- Attribute Property -->
+	<xsl:template match="@*">"<xsl:value-of select="name()"/>" : "<xsl:value-of select="."/>",
+    </xsl:template>
+</xsl:stylesheet>
+]]></Data>
+</XData>
+
+<XData name="XML2JSON3">
+<Description>
+from https://community.intersystems.com/post/enlibedixmldocument-xslt-stylesheet, by Eduard</Description>
+<Data><![CDATA[
+<?xml version="1.0"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:output method="text" indent="yes"/>
+    <xsl:template match="/*[node()]">
+        <xsl:text>{</xsl:text><xsl:text>&#xa;</xsl:text>
+        <xsl:apply-templates select="." mode="detect" />
+  <xsl:text>&#xa;</xsl:text>
+        <xsl:text>}</xsl:text>
+    </xsl:template>
+    <xsl:template match="*" mode="detect">
+        <xsl:choose>
+            <xsl:when test="name(preceding-sibling::*[1]) = name(current()) and name(following-sibling::*[1]) != name(current())">
+                    <xsl:apply-templates select="." mode="obj-content" />
+     <xsl:text>&#xa;</xsl:text>
+                <xsl:text>]</xsl:text>
+                <xsl:if test="count(following-sibling::*[name() != name(current())]) &gt; 0">, </xsl:if>
+            </xsl:when>
+            <xsl:when test="name(preceding-sibling::*[1]) = name(current())">
+                    <xsl:apply-templates select="." mode="obj-content" />
+                    <xsl:if test="name(following-sibling::*) = name(current())">, </xsl:if>
+            </xsl:when>
+            <xsl:when test="following-sibling::*[1][name() = name(current())]">
+                <xsl:text>"</xsl:text><xsl:value-of select="name()"/><xsl:text>" : [</xsl:text>
+        <xsl:text>&#xa;</xsl:text>
+                    <xsl:apply-templates select="." mode="obj-content" /><xsl:text>, </xsl:text>
+     <xsl:text>&#xa;</xsl:text>
+            </xsl:when>
+            <xsl:when test="count(./child::*) > 0 or count(@*) > 0">
+                <xsl:text>"</xsl:text><xsl:value-of select="name()"/>" : <xsl:apply-templates select="." mode="obj-content" />
+                <xsl:if test="count(following-sibling::*) &gt; 0">, </xsl:if>
+            </xsl:when>
+            <xsl:when test="count(./child::*) = 0">
+                <xsl:text>"</xsl:text><xsl:value-of select="name()"/>" : "<xsl:apply-templates select="."/><xsl:text>"</xsl:text>
+                <xsl:if test="count(following-sibling::*) &gt; 0">, </xsl:if>
+    <xsl:text>&#xa;</xsl:text>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="*" mode="obj-content">
+     <xsl:text>&#xa;</xsl:text>
+        <xsl:text>{</xsl:text>
+  <xsl:text>&#xa;</xsl:text>
+            <xsl:apply-templates select="@*" mode="attr" />
+            <xsl:if test="count(@*) &gt; 0 and (count(child::*) &gt; 0 or text())">, </xsl:if>
+            <xsl:apply-templates select="./*" mode="detect" />
+            <xsl:if test="count(child::*) = 0 and text() and not(@*)">
+                <xsl:text>"</xsl:text><xsl:value-of select="name()"/>" : "<xsl:value-of select="text()"/><xsl:text>"</xsl:text>
+            </xsl:if>
+            <xsl:if test="count(child::*) = 0 and text() and @*">
+                <xsl:text>"text" : "</xsl:text><xsl:value-of select="text()"/><xsl:text>"</xsl:text>
+            </xsl:if>
+        <xsl:text>}</xsl:text>
+        <xsl:if test="position() &lt; last()">, </xsl:if>
+    </xsl:template>
+    <xsl:template match="@*" mode="attr">
+        <xsl:text>"</xsl:text><xsl:value-of select="name()"/>" : "<xsl:value-of select="."/><xsl:text>"</xsl:text>
+        <xsl:if test="position() &lt; last()">,</xsl:if>
+    </xsl:template>
+    <xsl:template match="node/@TEXT | text()" name="removeBreaks">
+        <xsl:param name="pText" select="normalize-space(.)"/>
+        <xsl:choose>
+            <xsl:when test="not(contains($pText, '&#xA;'))"><xsl:copy-of select="$pText"/></xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="concat(substring-before($pText, '&#xD;&#xA;'), ' ')"/>
+                <xsl:call-template name="removeBreaks">
+                    <xsl:with-param name="pText" select="substring-after($pText, '&#xD;&#xA;')"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+</xsl:stylesheet>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.Util.XSLTHelper">
+<Description>
+Include HS.Common
+This class handles callbacks from the XSLT processor. You should create a subclass this class and override the 
+'evaluate' method to perform the processing that you require. An example of an stylesheet using this function is
+shown in the example XSL contained in the %XML.XSLT.Transformer class</Description>
+<Super>%XML.XSLT.CallbackHandler</Super>
+<TimeChanged>65279,79212.757669</TimeChanged>
+<TimeCreated>60165,61419.967336</TimeCreated>
+
+<Method name="evaluate">
+<FormalSpec>Args...</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	If Args(1)="xmltimestamp" {
+		Quit ..xmltimestamp(Args(2))
+	} ElseIf Args(1)="createGUID" {
+		Quit $System.Util.CreateGUID()
+	} ElseIf Args(1)="currentDate" {
+		Quit $ZDT($P($H,","),3)
+	} ElseIf Args(1)="lookup" {
+		Quit ..lookup(Args(2),Args(3))
+	} ElseIF Args(1)="dateNoDash" {
+		Quit ..dateNoDash(Args(2))
+	} ElseIf Args(1)="stripapos" {
+		Quit $zstrip(Args(2),"<>","'")
+	} ElseIf Args(1)="piece" {
+		Quit $P(Args(2),Args(3),Args(4))
+	} ElseIf Args(1)="pieceStrip" {
+		Quit $ZSTRIP($P(Args(2),Args(3),Args(4)),"<>W")
+	} ElseIf Args(1)="strip" {
+		Quit $ZSTRIP(Args(2),"<>"_Args(3))
+	} ElseIf Args(1)="encode" {
+		Quit $system.Encryption.Base64Encode(Args(2))
+	} ElseIf Args(1)="decode" {
+		Quit $system.Encryption.Base64Decode(Args(2))
+	} ElseIf Args(1)="timestamp" {
+		Quit ..timestamp($g(Args(2),$h))
+	} ElseIf Args(1)="xmltimestampisbefore" {
+		Quit ..xmltimestampisbefore(Args(2),Args(3))
+	} ElseIf Args(1)="dateDiff" {
+		Quit ..dateDiff(Args(2), Args(3), $Get(Args(4), $ZDateTime($Horolog, 3)))
+	}ElseIf Args(1)="hex2dec" { Quit ..hex2dec(Args(2))
+	} ElseIf Args(1)="uuid2oid" { Quit ..uuid2oid(Args(2))
+	} ElseIf Args(1)="createUUID" { Quit ..createUUID()
+	} ElseIf Args(1)="createOID" { Quit ..createOID()
+	} ElseIf Args(1)="createHL7Timestamp" { Quit ..createHL7Timestamp()
+	} ElseIf Args(1)="createID" { Quit ..createID($G(Args(2))) 
+	} ElseIf Args(1)="varReset" { Quit ..varReset()	 
+	} ElseIf Args(1)="varSet" { Quit ..varSet(Args...) 
+	} ElseIf Args(1)="varGet"	{ Quit ..varGet(Args...) 
+	} ElseIf Args(1)="varInc" { Quit ..varInc(Args...) 
+	} ElseIf Args(1)="varKill" { Quit ..varKill(Args...) 
+	} ElseIf Args(1)="varData" { Quit ..varData(Args...) 
+	} ElseIf Args(1)="varConcat" { Quit ..varConcat(Args...) 
+	} ElseIf Args(1)="varDebug" { Quit ..varDebug(Args...) 
+	} ElseIf Args(1)="getUniqueTime" { Quit ..getUniqueTime(Args(2),Args(3))
+	} ElseIf Args(1)="toUpper" { Quit $ZConvert($Get(Args(2)), "U")
+	} ElseIf Args(1)="toLower" { Quit $ZConvert($Get(Args(2)), "L")}
+	ZTRAP "BAD:"_$g(Args(1))
+]]></Implementation>
+</Method>
+
+<Method name="dateNoDash">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pDate</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	Quit $TR(pDate,"-")
+]]></Implementation>
+</Method>
+
+<Method name="timestamp">
+<Description>
+Compute a timestamp</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pEpoch:%String=$Horolog,pTimeZoneOffsetMinutes:%Integer=$ZTimeZone</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set tMinus = 0
+	If $Extract(pTimeZoneOffsetMinutes)="-" Set tMinus = 1 Set pTimeZoneOffsetMinutes = -pTimeZoneOffsetMinutes
+	Set tHours = pTimeZoneOffsetMinutes\60
+	Set:tHours<10 tHours = "0"_tHours
+	Set tMins = pTimeZoneOffsetMinutes#60
+	Set:tMins<10 tMins = "0"_tMins
+	Set tTimeZoneOffsetHHMM = $Select(tMinus=1:"-",1:"")_tHours_tMins
+	
+	If pEpoch["," {
+		Quit $TR("YyXxMmDdHhNnSs","YyXx-Mm-Dd Hh:Nn:Ss",$ZDT(pEpoch,3))_$e($fn(-tTimeZoneOffsetHHMM,"+"),1)_$E($zabs(tTimeZoneOffsetHHMM)+10000,2,5)
+	} Else {
+		Quit $TR("YyXxMmDd","YyXx-Mm-Dd",$ZDT(pEpoch,3))
+	}
+]]></Implementation>
+</Method>
+
+<Method name="timestamptoxml">
+<ClassMethod>1</ClassMethod>
+<CodeMode>expression</CodeMode>
+<FormalSpec>pTS:%String</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[$TR("YyXx-Mm-DdTHh:Nn:SsZ","YyXx-Mm-Dd Hh:Nn:Ss",pTS)
+]]></Implementation>
+</Method>
+
+<Method name="returnAsUTC">
+<Description>
+Used to take a standard date/time (YYYY-MM-DD HH:MM:SS) and return as UTC (YYYY-MM-DDTHH:MM:SSZ)</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>datetime:%String</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Try { 
+		Set tReturn=$tr($ZDT($ZDTH(datetime,3,4),3,7),"T:-")
+	} Catch {
+		Set tReturn=""
+	}
+	quit tReturn
+]]></Implementation>
+</Method>
+
+<Method name="xmltimestampisbefore">
+<Description>
+Compare two XML timestamps, returns true if pTS1 is the same as or before pTS2</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pTS1:%String,pTS2:%String="{$ZDateTime($Horolog, 3)}"</FormalSpec>
+<ReturnType>%Boolean</ReturnType>
+<Implementation><![CDATA[
+	Set tH1 = $S(pTS1'="":$ZDTH($tr("YyXx-Mm-Dd Hh:Nn:Ss","YyXx-Mm-DdTHh:Nn:SsZ",pTS1),3),1:0)
+	Set tH2 = $S(pTS2'="":$ZDTH($tr("YyXx-Mm-Dd Hh:Nn:Ss","YyXx-Mm-DdTHh:Nn:SsZ",pTS2),3),1:9999999999)
+	Set tResult = $S(+tH1<+tH2:1,+tH1>+tH2:0,1:$P(tH1,",",2)<=$P(tH2,",",2))
+	
+	Quit tResult
+]]></Implementation>
+</Method>
+
+<Method name="xmltimestamp">
+<Description>
+Convert an HL7 date of the form YYYYMMDDHHMM into a standard XML date</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pDate</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	// TODO: Handle YYYY and YYYYMM. Right now we reject them.
+	Quit:$Length(pDate)<8 ""
+	
+	If $Extract(pDate,7,8)="00"!($Extract(pDate,5,6)="00") Quit ""
+	
+	// Account for an HL7 date that has a time zone offset AND leaves the seconds off the time.
+	If pDate?1N.N1"-"4N!(pDate?1N.N1"+"4N) {
+		Set tDelim = $Extract(pDate,$Length(pDate)-4)
+		Set tDate1=$Piece(pDate,tDelim,1),tDate2=$Piece(pDate,tDelim,2)
+		If $Length(tDate1)=12 Set tDate1=tDate1_"00" Set pDate=tDate1_tDelim_tDate2
+	}
+	
+	Quit $tr("YyXx-Mm-DdTHh:Nn:SsZ","YyXxMmDdHhNnSs",$ZSTRIP($P(pDate,"+"),"<>W")_"00000000000000")
+]]></Implementation>
+</Method>
+
+<Method name="dateDiff">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pDatePart:%String="",pStartDateODBCFormat:%String="",pEndDateODBCFormat:%String={$ZDateTime($Horolog, 3)}</FormalSpec>
+<ReturnType>%Integer</ReturnType>
+<Implementation><![CDATA[
+	#dim eException As %Exception.AbstractException
+	
+	Try {
+		Set tDateDiff = $System.SQL.DATEDIFF(pDatePart, pStartDateODBCFormat, pEndDateODBCFormat)
+	}
+	Catch eException {
+		Set tDateDiff = ""
+	}
+	
+	Quit tDateDiff
+]]></Implementation>
+</Method>
+
+<Method name="lookup">
+<Description>
+Convert a lookup</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>table,value</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set value=$ZSTRIP(value,"<>W")
+	
+	If table="resultstatus" {
+		Quit $S(value="F":"FIN",value="C":"COR",1:"ENT")
+	} ElseIf table="idtype" {
+		Quit $S("/MR/MRN/PI/"[("/"_value_"/"):"MRN","/SSN/DL/"[("/"_value_"/"):value,1:"OTH")
+	} ElseIf table="patientclass" {
+		Quit $S("/I/E/O/N/"[("/"_value_"/"):value,1:"O")
+	} ElseIf table="orderstatus" {
+		Quit $S("/DC/CA/RP/"[("/"_value_"/"):"D",value="HD":"H","/IP/SC/"[("/"_value_"/"):"IP",value="CM":"EXE",1:"INT")
+	} Else {
+		Quit value
+	}
+]]></Implementation>
+</Method>
+
+<Method name="hex2dec">
+<Description>
+Convert a hexidecimal number to decimal
+While $ZHEX has a max hex input length of 16, this method
+has no limit -- only cpu/ram will affect max input length</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pHex:%String=""</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	For i=1:1:$l(pHex) {
+		#;shift
+		Set j="" For { Set j=$o(tDigits(j)) Quit:j=""  
+			Set tDigits(j)=tDigits(j)*16 
+		}
+		
+		#;increment
+		Set tDigits(1)=$g(tDigits(1))+$ZHEX($e(pHex,i))
+		
+		#;carry
+		Set j="" For { Set j=$o(tDigits(j)) Quit:j=""  
+			If tDigits(j)>9 {
+				Set tDigits(j+1)=$g(tDigits(j+1))+(tDigits(j)\10)
+				Set tDigits(j)=tDigits(j)#10
+			}
+		}
+	}
+	
+	#;convert to string
+	If '$d(tDigits) Quit ""
+	Set (tDec,i)="" For { Set i=$o(tDigits(i),1,v) Quit:i=""  
+		Set tDec=tDigits(i)_tDec 
+	}
+	q tDec
+]]></Implementation>
+</Method>
+
+<Method name="createID">
+<Description>
+Create a generic XML element ID unique for the current transform, with optional prefix</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pPrefix:%String=""</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	If pPrefix="" Set pPrefix="id"
+	Quit pPrefix_..varInc("","_id",pPrefix)
+]]></Implementation>
+</Method>
+
+<Method name="uuid2oid">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pUUID:%String=""</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	#;See IHE ITI 2x: B.6
+	Quit "2.25."_..hex2dec($tr(pUUID,"-",""))
+]]></Implementation>
+</Method>
+
+<Method name="createUUID">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	#;UUID must be lowercase, see IHE ITI 3: 4.1.12.3
+	Quit $ZCVT($SYSTEM.Util.CreateGUID(),"L")
+]]></Implementation>
+</Method>
+
+<Method name="createOID">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	Quit ..uuid2oid(..createUUID())
+]]></Implementation>
+</Method>
+
+<Method name="createHL7Timestamp">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	#;All XDSb timestamps must be UTC (IHE ITI 3: 4.1.7)
+	Quit $TR($P($ZDT($ZTS,3,,3),".",1),"-:TZ ","")
+]]></Implementation>
+</Method>
+
+<Method name="varArgsToNameValue">
+<Description>
+Turn an arg list into a variable name and optionally a value</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[pHasValue:%Boolean=0,&pName:%String,Args...]]></FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	#; Start with the variable cache name
+	If $Get(pName)="" Set pName="%HSUtilXSLTHelper"
+	
+	#; Add subscripts, ignorning value if appropriate 
+	#; Append " " to ensure non-null subscript
+	For i=2:1:($G(Args)-pHasValue) {
+		Set pName=pName_$s(pName["(":",",1:"(")
+		Set pName=pName_""" "_$G(Args(i))_""""
+	}
+	If pName["(" Set pName=pName_")"
+	
+	#; Return the last arg if there is a value, "" otherwise
+	Quit $S(pHasValue:$G(Args($G(Args))),1:"")
+]]></Implementation>
+</Method>
+
+<Method name="varReset">
+<Description>
+Clear the variable cache. Call before each transform either from code or the XSL itself</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[	Quit ..varKill()
+]]></Implementation>
+</Method>
+
+<Method name="varKill">
+<Description>
+Kill a variable in the cache.</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>Args...</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Do ..varArgsToNameValue(0,.tVar)
+	Kill @tVar
+	Quit ""
+]]></Implementation>
+</Method>
+
+<Method name="varSet">
+<Description>
+Set a variable in the cache</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>Args...</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set tValue=..varArgsToNameValue(1,.tVar,Args...)
+	Set @tVar=tValue
+	Quit tValue
+]]></Implementation>
+</Method>
+
+<Method name="varGet">
+<Description>
+Get a variable</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>Args...</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Do ..varArgsToNameValue(0,.tVar,Args...)
+	Quit $G(@tVar)
+]]></Implementation>
+</Method>
+
+<Method name="varInc">
+<Description>
+Increment a variable</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>Args...</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Do ..varArgsToNameValue(0,.tVar,Args...)
+	Quit $I(@tVar)
+]]></Implementation>
+</Method>
+
+<Method name="varData">
+<Description>
+Check for data in a var</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>Args...</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Do ..varArgsToNameValue(0,.tVar,Args...)
+	Quit $D(@tVar)
+]]></Implementation>
+</Method>
+
+<Method name="varConcat">
+<Description>
+Concatenate a value onto a variable in the cache</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>Args...</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set tValue=..varArgsToNameValue(1,.tVar,Args...)
+	Set @tVar=$G(@tVar)_tValue
+	Quit @tVar
+]]></Implementation>
+</Method>
+
+<Method name="varDebug">
+<Description>
+Merge the variable cache into a debug global</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>Args...</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set tGlobal=$G(Args(2))
+	If tGlobal]"" {
+		Do ..varArgsToNameValue(0,.tVar)
+		Set %=$i(@tGlobal)
+		Merge @tGlobal@(%)=@tVar
+	}
+	Quit ""
+]]></Implementation>
+</Method>
+
+<Method name="makeURL">
+<Description>
+Create a valid URL</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>Args...</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set tURL=Args(2)
+	Set tDelim="?"
+	For i=3:2:Args {
+		Set tURL=tURL_tDelim_Args(i)_"="_$ZCVT($G(Args(i+1)),"O","URL")
+		Set tDelim="&"
+	}
+	Quit tURL
+]]></Implementation>
+</Method>
+
+<Method name="getUniqueTime">
+<Description>
+Work around for bug in viewer that looses documents with same date/time over different encounters
+It will return a unique timestamp for the current transform as close to the input timestamp as possible</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pKey:%String="",pValue:%String</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set tValue=pValue,i=0
+	
+	#; keep adding 1ms to the time value until it hasn't been seen
+	#; bail if we would move to the next second
+	while ..varData(pKey,tValue) {
+		Set i=i+1 If i>999 Quit  
+		Set tValue=$p(pValue,"Z",1)_"."_$tr($j(i,3)," ",0)_"Z"
+	}
+	
+	#; mark this value as seen
+	Do ..varSet(pKey,tValue,1)
+	
+	Quit tValue
+]]></Implementation>
+</Method>
+
+<Method name="xmltimestampToUTC">
+<Description>
+Convert xmltimestamp with offset to timestamp with UTC</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pDateTime</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	#; if not a full date return what we are given
+	Quit:$l(pDateTime)<8 pDateTime
+	Set dt=$zdh($e(pDateTime,1,8),8),tm=$e(pDateTime,9,*)
+	#; return the same precision as given
+	Set offsetpos=$f(pDateTime,"-") set:'offsetpos offsetpos=$f(pDateTime,"+")
+	#; if no offset return what we are given
+	If 'offsetpos Quit pDateTime
+	Set len=$s('offsetpos:$l(pDateTime),1:offsetpos-2)
+
+	Set offset=$e(pDateTime,offsetpos-1,*),tm=$e(pDateTime,9,offsetpos-2),offset=$e(offset)_($e(offset,2,3)*3600+($e(offset,4,5)*60))
+	Set tm=$zth($e(tm,1,2)_":"_$e(tm_"00",3,4)_":"_$e(tm_"00",5,6)),tm=tm-offset s:tm<0 tm=86400-tm,dt=dt-1 s:tm>86399 tm=tm-86400,dt=dt+1
+	Quit $E($zd(dt,8)_$tr($zt(tm),":"),1,len)
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="SEDemo.Util.XSLTTransformer">
+<Description>
+XSLT utility that will cache and compile transforms. It can either be used 
+standalone or as a super class to an ensemble business host.</Description>
+<IncludeCode>Ensemble</IncludeCode>
+<Super>%RegisteredObject</Super>
+<TimeChanged>65286,78310.712378</TimeChanged>
+<TimeCreated>61748,63161.703988</TimeCreated>
+
+<Parameter name="SETTINGS">
+<Default>XSLTDirectory,XSLTCallbackHandlerClass,XSLTErrorHandlerClass,XSLTCacheMode</Default>
+</Parameter>
+
+<Property name="XSLTDirectory">
+<Description>
+Location for file transforms (defaults to %install dir%/csp/xslt)</Description>
+<Type>Ens.DataType.Directory</Type>
+</Property>
+
+<Property name="XSLTCallbackHandlerClass">
+<Description>
+XSLT transformer callback class name
+Defaults to HS.Util.XSLTHelper</Description>
+<Type>Ens.DataType.Class</Type>
+</Property>
+
+<Property name="XSLTErrorHandlerClass">
+<Description>
+XSLT error handler callback class name, if any</Description>
+<Type>Ens.DataType.Class</Type>
+</Property>
+
+<Property name="XSLTCacheMode">
+<Description><![CDATA[
+How stylesheets should be cached
+<li>Always - The stylesheet is loaded and compiled once
+<li>Timestamp - The stylesheet is loaded if file modification time is after the load time
+<li>Never - The stylesheet is never cached (desirable during development)
+NOTE: Currently, timestamps are checked only for file transforms, not XData or URLs]]></Description>
+<Type>%String</Type>
+<InitialExpression>"T"</InitialExpression>
+<Parameter name="DISPLAYLIST" value=",Always,Timestamp,Never"/>
+<Parameter name="VALUELIST" value=",A,T,N"/>
+</Property>
+
+<Property name="CallbackHandler">
+<Description>
+Instance of the callback handler for isc:evaluate() functions</Description>
+<Type>%XML.XSLT.CallbackHandler</Type>
+<InitialExpression>$$$NULLOREF</InitialExpression>
+</Property>
+
+<Property name="ErrorHandler">
+<Description>
+Instance of the XSLT error handler</Description>
+<Type>%XML.XSLT.ErrorHandler</Type>
+<InitialExpression>$$$NULLOREF</InitialExpression>
+</Property>
+
+<Property name="Initialized">
+<Description>
+Internal flag indicating if the class needs initializtion (which is automatic)</Description>
+<Type>%Boolean</Type>
+<InitialExpression>0</InitialExpression>
+<Private>1</Private>
+</Property>
+
+<Property name="StyleSheets">
+<Description>
+Map of XSL locations to compiled stylesheets</Description>
+<Type>%XML.XSLT.CompiledStyleSheet</Type>
+<Collection>array</Collection>
+<Private>1</Private>
+</Property>
+
+<Property name="Filenames">
+<Description><![CDATA[
+Map of XSL locations to filenames
+Format : ..Filenames(<lcase location>)=<filename>
+Example: ..Filenames("/sda/ccd-to-sda.xsl")="C:\Healthshare\CSP\xslt\SDA\CCD-to-SDA.xsl"]]></Description>
+<Type>%String</Type>
+<MultiDimensional>1</MultiDimensional>
+<Private>1</Private>
+</Property>
+
+<Property name="Timestamps">
+<Description><![CDATA[
+Map of filenames to last-modified timestamps (as a UTC integer value)
+Format : ..Timestamps(<lcase filename>)=<utc integer time>
+Example: ..Timestamps("c:\healthshare\csp\xslt\sda\ccd-to-sda.xsl")=5334833340]]></Description>
+<Type>%String</Type>
+<MultiDimensional>1</MultiDimensional>
+<Private>1</Private>
+</Property>
+
+<Property name="DoHSTrace">
+<Description>
+Controls sending HSTrace messages when extending Ensemble hosts. If not set by the caller,
+will look at the "TraceOperations" setting</Description>
+<Type>%Boolean</Type>
+</Property>
+
+<Property name="ClearCallbackVariables">
+<Description>
+Internal flag to control clearing callback state variables</Description>
+<Type>%Boolean</Type>
+<InitialExpression>0</InitialExpression>
+<Private>1</Private>
+</Property>
+
+<Method name="Initialize">
+<Description>
+Setup default values</Description>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=$$$OK
+	Try {
+
+		#; Directory defaults to <install>/csp/xslt (or <perforce hslib path>/csp/xslt on developer instances)
+		If ..XSLTDirectory="" {
+			
+				Set tInstallDir=$SYSTEM.Util.InstallDirectory()
+			
+			Set ..XSLTDirectory=##class(%File).NormalizeDirectory(tInstallDir_"/csp/xslt/")
+		}
+		
+		#; Create handlers
+		If ..XSLTCallbackHandlerClass="" Set ..XSLTCallbackHandlerClass="SEDemo.Util.XSLTHelper"
+		If '$isObject(..CallbackHandler) Set ..CallbackHandler = $ZOBJCLASSMETHOD(..XSLTCallbackHandlerClass,"%New")
+		If ..XSLTErrorHandlerClass]"",'$IsObject(..ErrorHandler) Set ..ErrorHandler = $ZOBJCLASSMETHOD(..XSLTErrorHandlerClass,"%New")
+
+
+		#; Tracing - If not set, check the TraceOperations host setting and enable only for full tracing
+		If ..DoHSTrace="",$this.%Extends("HS.Util.Trace.Helper"),(($zobjproperty($this,"TraceOperations")]"")&&($zobjproperty($this,"TraceOperations")'="*ERRORSONLY*")&&($zobjproperty($this,"TraceOperations")'="*MINIMAL*")) Set ..DoHSTrace = 1
+
+		Set ..Initialized=1
+	} Catch ex { Set tSC=ex.AsStatus() }
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="Transform">
+<Description>
+Transform a string or stream</Description>
+<FormalSpec><![CDATA[pInput="",pLocation:%String="",&pOutput,&pParameters=""]]></FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=$$$OK
+	Try {
+		#; On demand initialization
+		If '..Initialized Set tSC=..Initialize() Quit:$$$ISERR(tSC)
+		
+		#; If using standard helper, clear the variable cache before every transform
+		If ..ClearCallbackVariables Do ..CallbackHandler.varReset()
+		
+		#; Transform
+		#;	
+		#; HS.Util.XSLTTransformer may be used several different ways:
+		#; A) Extended by an Ensemble config item
+		#; B) As an object that is a property of an Ensemble config item
+		#; C) Standalone
+		#;
+		#; HS Tracing is supported for scenarios A and B.
+		#;
+		#; For scenario A, the ..DoTrace property applies and is the trigger for tracing.
+		#;
+		#; For scenario B, the Ensemble config item must create the trace host pointer
+		#; variable (using $$$HSTRACESTARTCALL) before calling .Transform, in order to
+		#; trigger tracing here.
+		#;
+		#; For both, tracing is done here only when TraceOperations indicates full tracing.
+		#;
+		
+		Set tSC=..getStyleSheet(pLocation,.tXSL) Quit:$$$ISERR(tSC)		
+		Set tSC=..getParameters(.pParameters,.tParams) Quit:$$$ISERR(tSC)
+		
+		Set tTraceTitle = "Before Transform "_pLocation
+		Set tVariableNames = "tParams,pInput"
+		Set tDebugParamsStream = ..debugParams(.tParams)
+		/*If $$$HSTRACINGCALLED {
+			$$$HSTRACECALLED(tTraceTitle,tVariableNames,tDebugParamsStream,pInput)
+			DO:$IsObject(pInput) pInput.Rewind()
+		} ElseIf ..DoHSTrace {
+			Do $zobjmethod($this,"HSTrace",$$$CurrentClass,$$$CurrentMethod,tTraceTitle,tVariableNames,tDebugParamsStream,pInput)
+			DO:$IsObject(pInput) pInput.Rewind()
+		}*/
+		Kill tDebugParamsStream
+		//原来用FileCharacterStream会带来中文问题， 没搞明白呢
+		If '$IsObject($g(pOutput)) {
+			//Set pOutput=##class(%FileCharacterStream).%New(),pOutput.TranslateTable="UTF8"
+			Set pOutput=##class(%GlobalCharacterStream).%New()		
+		}
+
+		If $IsObject(pInput) {
+			Do pInput.Rewind()
+			Set tSC=##class(%XML.XSLT.Transformer).TransformStreamWithCompiledXSL(pInput,tXSL,.pOutput,..ErrorHandler,.tParams,..CallbackHandler)
+		} Else {
+			Set tSC=##class(%XML.XSLT.Transformer).TransformStringWithCompiledXSL(pInput,tXSL,.pOutput,..ErrorHandler,.tParams,..CallbackHandler)
+		}
+		
+		Set tTraceTitle = "After Transform "_pLocation
+		Set tVariableNames = "tSC,pOutput"
+		/*If $$$HSTRACINGCALLED {
+			$$$HSTRACECALLED(tTraceTitle,tVariableNames,tSC,$G(pOutput))
+			Do:$IsObject($G(pOutput)) pOutput.Rewind()
+		} ElseIf ..DoHSTrace {
+			Do $zobjmethod($this,"HSTrace",$$$CurrentClass,$$$CurrentMethod,tTraceTitle,tVariableNames,tSC,$G(pOutput))
+			Do:$IsObject($G(pOutput)) pOutput.Rewind()
+		}*/
+		
+	} Catch ex { Set tSC=ex.AsStatus() }
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="TransformIntoObject">
+<Description>
+Transform a string or stream into an object</Description>
+<FormalSpec><![CDATA[pInput,pLocation:%String="",*pOutput:%XML.Adaptor,&pParameters="",pClassname:%String="",pXMLName:%String="",pCanonicalize:%Boolean=0,pTempStream:%Stream.Object]]></FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=$$$OK
+	Try {
+		Set:$IsObject($g(pTempStream)) tOutput=pTempStream
+		Set tSC = ..Transform(pInput,pLocation,.tOutput,.pParameters) Quit:$$$ISERR(tSC)
+		Set tSC = ..ImportObject(tOutput,.pOutput,pClassname,pXMLName,pCanonicalize) Quit:$$$ISERR(tSC)
+	} Catch ex { Set tSC=ex.AsStatus() }
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="TransformFromObject">
+<Description>
+Transform an object into a string or stream</Description>
+<FormalSpec><![CDATA[pInput:%XML.Adaptor,pLocation:%String="",&pOutput,&pParameters="",&pXMLName:%String,pAsStream:%Boolean=1]]></FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=$$$OK
+	Try {
+		If pAsStream {
+			Set tSC=pInput.XMLExportToStream(.tInput,.pXMLName) Quit:$$$ISERR(tSC)
+		} Else {
+			Set tSC=pInput.XMLExportToString(.tInput,.pXMLName) Quit:$$$ISERR(tSC)
+		}
+		Set tSC= ..Transform(tInput,pLocation,.pOutput,.pParameters)
+	} Catch ex { Set tSC=ex.AsStatus() }	
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="TransformObjects">
+<Description>
+Transform an object into another object</Description>
+<FormalSpec><![CDATA[pInput:%XML.Adaptor,pLocation:%String="",&pOutput:%XML.Adaptor,&pParameters="",pClassname:%String="",pXMLName:%String="",pCanonical:%Boolean=0,pTempStream:%Stream.Object]]></FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=$$$OK
+	Try {
+		Set tSC = pInput.XMLExportToStream(.tInput) Quit:$$$ISERR(tSC)
+		Set:$IsObject($g(pTempStream)) tOutput=pTempStream
+		Set tSC = ..Transform(tInput,pLocation,.tOutput,.pParameters) Quit:$$$ISERR(tSC)
+		Set tSC = ..ImportObject(tOutput, .pOutput, pClassname, pXMLName, pCanonical) Quit:$$$ISERR(tSC)
+	} Catch ex { Set tSC=ex.AsStatus() }	
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="ImportObject">
+<Description>
+Import an object from a stream, optionally canocalizing the stream before import</Description>
+<FormalSpec>pInput,*pObject:%XML.Adaptor,pClassname:%String="",pXMLName:%String="",pCanonicalize:%Boolean=0</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=$$$OK
+	Try {
+		#; Canonicalization
+		If pCanonicalize,$IsObject(pInput) {
+			Set tSC = ..CanonicalizeStream(pInput, .tInput) Quit:$$$ISERR(tSC)
+		} Else {
+			Set tInput = pInput
+		}
+
+		#; Determine the XML element
+		If pXMLName]"" {		
+			Set tXMLName = pXMLName
+		} Else {
+			$$$comMemberKeyGetLvar(tXMLName,pClassname,$$$cCLASSparameter,"XMLNAME",$$$cPARAMdefault)
+			If tXMLName="" {
+				$$$comMemberKeyGetLvar(tXMLName,pClassname,$$$cCLASSparameter,"XMLTYPE",$$$cPARAMdefault)
+			}
+			If tXMLName="" Set tXMLName = $$$ClassShortName(pClassname)
+		}
+
+		#; Import
+		Set tReader = ##class(%XML.Reader).%New()
+		Do tReader.Correlate(tXMLName, pClassname)
+		If $IsObject(tInput) {
+			Do tInput.Rewind()
+			Set tSC = tReader.OpenStream(tInput) Quit:$$$ISERR(tSC)
+		} Else {
+			Set tSC = tReader.OpenString(tInput) Quit:$$$ISERR(tSC)
+		}	
+		If 'tReader.Next(.pObject,.tSC) {
+			Set:$$$ISOK(tSC) tSC = $$$ERROR($$$GeneralError,"Failed to correlate tag '"_tXMLName_"' into a '"_pClassname_"' object.")
+		}
+	} Catch ex { Set tSC=ex.AsStatus() }
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="CanonicalizeStream">
+<Description>
+Canonicalize an XML stream</Description>
+<FormalSpec>pInput:%Stream.Object,*pOutput:%Stream.Object</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC = $$$OK
+	Try {
+		Do pInput.Rewind()
+		Set tReader = ##class(%XML.Reader).%New()
+		Set tSC = tReader.OpenStream(pInput) Quit:$$$ISERR(tSC)
+		Set tNode = tReader.Document.GetDocumentElement()
+		
+		Set tWriter = ##class(%XML.Writer).%New()
+		Set tWriter.Indent = 0
+		Set tWriter.NoXMLDeclaration = 1
+		Set tSC = tWriter.OutputToStream(.pOutput) $$$ThrowOnError(tSC)
+		Set tSC = tWriter.Canonicalize(tNode,,1) $$$ThrowOnError(tSC)
+		
+		Do pOutput.Rewind(),pInput.Rewind()
+	} Catch ex { Set tSC = ex.AsStatus() }
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="getStyleSheet">
+<Description>
+Lookup a stylesheet from the cache, load if missing or expired</Description>
+<FormalSpec>pLocation:%String="",*pXSL:%XML.XSLT.CompiledStyleSheet</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=$$$OK
+	Try {
+		Set tScheme=$ZCVT($P(pLocation,":",1),"L")
+		
+		If (tScheme="xdata")||(tScheme="http") {
+			//$$$TRACE("Using stream transform: "_pLocation)
+
+			#; XSL is from a stream
+			Set tKey=$ZCVT(pLocation,"L")
+			Set pXSL=..StyleSheets.GetAt(tKey)
+			If pXSL="" {
+				//$$$TRACE("Loading XSLT stream: "_pLocation)
+				Set tSC=##class(Ens.Util.URLStream).GetURLStream(pLocation,.tStream) Quit:$$$ISERR(tSC)
+				Set tSC=##class(%XML.XSLT.CompiledStyleSheet).CreateFromStream(tStream,.pXSL) Quit:$$$ISERR(tSC)
+				If ..XSLTCacheMode'="N" Set tSC=..StyleSheets.SetAt(pXSL,tKey) Quit:$$$ISERR(tSC)
+			} Else {
+				//$$$TRACE("Using XSLT stream: "_pLocation)
+			}
+		} 
+		Else {
+			#; XSL is from a file
+			Set tSC=..getFilename(pLocation,.tFilename) Quit:$$$ISERR(tSC)
+			Set tKey=$ZCVT(tFilename,"L")
+			Set pXSL=..StyleSheets.GetAt(tKey)
+			
+			#; There is an entry, bail if not expired
+			If pXSL]"" {
+				If ..XSLTCacheMode="A" Quit  //$$$TRACE("Using cached file: "_tFilename) Quit
+				If ..XSLTCacheMode="T" {
+					If $G(..Timestamps(tKey))=..getLastModified(tFilename) Quit  //$$$TRACE("Using cached file: "_tFilename) Quit
+					//$$$TRACE("Expired cached file: "_tFilename)
+				}
+			}
+		
+			#; Entry is missing or expired, load stylesheet from file
+			//$$$TRACE("Loading XSLT file: "_tFilename)
+			Set tSC = ##class(%XML.XSLT.CompiledStyleSheet).CreateFromFile(tFilename,.pXSL) Quit:$$$ISERR(tSC)
+			If ..XSLTCacheMode'="N" {
+				Set tSC=..StyleSheets.SetAt(pXSL,tKey) Quit:$$$ISERR(tSC)
+				If ..XSLTCacheMode="T" {
+					Set ..Timestamps(tKey)=..getLastModified(tFilename)
+				}		
+			}
+		}
+	} Catch ex { Set tSC=ex.AsStatus() }
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="getFilename">
+<Description>
+Get the filename for a location, defaulting directory if not absolute</Description>
+<FormalSpec>pLocation:%String,*pFilename:%String=""</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=$$$OK
+	Try {
+		Set tKey=$ZCVT(pLocation,"L")
+		Set pFilename=$G(..Filenames(tKey))
+		If pFilename="" {
+			Set tScheme=$p(tKey,":",1)
+
+			If tScheme="file" {
+				#; Trim out the file:///
+				Set pFilename=$e(pLocation,9,*) 
+				If '##class(%File).Exists(pFilename) $$$ThrowStatus($$$ERROR($$$GeneralError,"XSL file not found: "_pFilename))
+			} 
+			Else {
+				#; Try custom override first, then default directory
+				Set tFilename = ##class(%File).NormalizeFilename(..XSLTDirectory _ "/" _ pLocation)
+				Set tCustomFilename = ##class(%File).NormalizeFilename(##class(%File).GetDirectory(tFilename) _ "/Custom/" _ ##class(%File).GetFilename(tFilename))
+				
+				Set pFilename=tCustomFilename
+				If '##class(%File).Exists(pFilename) {
+					Set pFilename=tFilename
+					If '##class(%File).Exists(pFilename) $$$ThrowStatus($$$ERROR($$$GeneralError,"XSL file not found: "_pFilename))
+				}
+			}
+			Set ..Filenames(tKey)=pFilename
+		}
+	} Catch ex { Set tSC=ex.AsStatus() }
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="getLastModified">
+<Description>
+Return last modified time for file as an integer</Description>
+<FormalSpec>pFilename:%String</FormalSpec>
+<ReturnType>%Integer</ReturnType>
+<Implementation><![CDATA[
+	Set tTS = ##class(%File).GetFileDateModified(pFilename,1)
+	Set tTS = (+tTS * 86400) + $P(tTS,",",2)
+	Quit tTS
+]]></Implementation>
+</Method>
+
+<Method name="getParameters">
+<Description>
+Prepare parameters for transformation
+ pParameters: a %ListOfDataTypes or multi-dimensional array
+	 pParams: Output multidimensional array
+If values are not surrounded by single quotes they will be added</Description>
+<FormalSpec><![CDATA[&pParameters,*pParams]]></FormalSpec>
+<Private>1</Private>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=$$$OK
+	Try {
+		#; Build multidimensional list from array object or multidimensional list 
+		If $IsObject(pParameters) {		
+			Set tKey=""	For {	Set tValue=pParameters.GetNext(.tKey) Quit:tKey=""
+				Set pParams(tKey)=tValue
+			}
+		} Else {
+			Merge pParams=pParameters
+		}
+		
+		#; Ensure params are single quoted
+		Set tKey="" For { Set tKey=$O(pParams(tKey),1,tValue) Quit:tKey=""
+			If $e(tValue,1)'="'" Set tValue="'"_tValue_"'"
+			Set pParams(tKey)=tValue
+		}
+	} Catch ex { Set tSC=ex.AsStatus() }
+	Quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="debugParams">
+<Description>
+Dump parameters out to a stream</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[&pParams=""]]></FormalSpec>
+<ReturnType>%Stream.GlobalCharacter</ReturnType>
+<Implementation><![CDATA[
+	Set tStream=##class(%Stream.GlobalCharacter).%New()
+	Set tKey="" For { Set tKey=$O(pParams(tKey),1,tValue) Quit:tKey=""
+		Do tStream.WriteLine(tKey_"="_tValue)
+	}
+	DO tStream.Rewind()
+	Quit tStream
+]]></Implementation>
+</Method>
+</Class>
+
+
+
+
+<Class name="SEDemo.XML.Production">
+<Super>Ens.Production</Super>
+<TimeChanged>65604,52482.482601</TimeChanged>
+<TimeCreated>65290,65727.649836</TimeCreated>
+
+<XData name="ProductionDefinition">
+<Data><![CDATA[
+<Production Name="SEDemo.XML.Production" TestingEnabled="true" LogGeneralTraceEvents="true">
+  <Description></Description>
+  <ActorPoolSize>2</ActorPoolSize>
+  <Item Name="XPathBO" Category="XPath" ClassName="SEDemo.XML.XPathBO" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="TestService" Category="XPath,XSLT" ClassName="SEDemo.XML.TestService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="XPathBPL" Category="XPath" ClassName="SEDemo.XML.XPathBPL" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="XPathBPL2" Category="XPath" ClassName="SEDemo.XML.XPathBPL2" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="XSLTBO" Category="XSLT" ClassName="SEDemo.XML.XSLTBO" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="XSLTBO2" Category="XSLT" ClassName="SEDemo.XML.XSLTBO2" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="XSLTBO3" Category="XSLT" ClassName="SEDemo.XML.XSLTBO3" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="XSLTBPL" Category="XSLT" ClassName="SEDemo.XML.XSLTBPL" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="XSLTBPL2" Category="XSLT" ClassName="SEDemo.XML.XSLTBPL2" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="XSLTRouter" Category="XSLT" ClassName="EnsLib.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="BusinessRuleName">SEDemo.XML.XSLTRouter</Setting>
+  </Item>
+  <Item Name="Target1" Category="XSLT" ClassName="SEDemo.Common.DummyBO" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+</Production>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.XML.TestService">
+<Description>
+发现一个bug: 如果用同一个streamContainer的消息从BS发到BO, 修改了这个message再发一次， 那么在message viewer里面两个消息的内容显示的都是最终的消息内容
+问题：怎么才能让这个BS保持running:是因为收到了错误， 所以BS从running变成了not running, 可是我以前用的BS为什么不这样？
+当收到正常响应后， 是可以一直保持running的。</Description>
+<Super>Ens.BusinessService</Super>
+<TimeChanged>65604,52592.370768</TimeChanged>
+<TimeCreated>65596,6054.415621</TimeCreated>
+
+<Parameter name="ADAPTER">
+<Default>Ens.InboundAdapter</Default>
+</Parameter>
+
+<Property name="Adapter">
+<Type>Ens.InboundAdapter</Type>
+</Property>
+
+<Method name="OnProcessInput">
+<CodeMode>expression</CodeMode>
+<FormalSpec>pInput:%RegisteredObject,*pOutput:%RegisteredObject</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[$$$OK
+]]></Implementation>
+</Method>
+
+<Method name="OnInit">
+<Description>
+参见issue2可以理解为什么写的这么麻烦</Description>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	$$$TRACE("INIT")
+	#; //Request 1, to XPathBPL
+	#; set Sending1=##class(Ens.StreamContainer).%New()
+  #; set Sending1.Stream=##class(%Stream.GlobalCharacter).%New()
+	#; Set tempString="<?xml version=""1.0""?><patient><name first=""嫦"" last=""娥"">嫦娥</name></patient>" //注意escape符
+	#; //Set tempString="<PRPA_IN201311UV02><sender typeCode=""SND"">hello</sender></PRPA_IN201311UV02>"  
+  #; do Sending1.Stream.Write(tempString)
+  #; Set tSC=..SendRequestSync("XPathBPL",Sending1) 
+  #; hang 3
+  
+	#; //Request 2, to XPathBPL; 使用的XDATA中的XML, 并且带有xmlns
+  #; set Sending2=##class(Ens.StreamContainer).%New()
+  #; set Sending2.Stream=##class(%Stream.GlobalCharacter).%New()
+  #; set tStream=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||PRPAIN201311UV02").Data
+  #;   If '$IsObject(tStream) Set tSC=%objlasterror Quit tSC
+  #; do Sending2.Stream.CopyFrom(tStream)
+  #; Set tSC=..SendRequestSync("XPathBPL2",Sending2) 
+	
+	#; //Request 3, to XPathBO
+	
+ 	#; Set tSC=..SendRequestSync("XPathBO",Sending2) 
+  
+
+	//Request 4, to XSLTBO
+
+	set Sending10=##class(Ens.StreamContainer).%New()
+	Set Sending10.Stream=##class(%Stream.GlobalCharacter).%New()
+	set tStream=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||C0001Sample").Data
+	If '$IsObject(tStream) Set tSC=%objlasterror Quit tSC
+  do Sending10.Stream.CopyFrom(tStream)
+	Set tSC=..SendRequestSync("XSLTBO",Sending10)
+
+	//Request 5, to XSLTBO2
+	Set tSC=..SendRequestSync("XSLTBO2",Sending10)
+
+	//Request 6, to XSLTBO3
+	Set tSC=..SendRequestSync("XSLTBO3",Sending10)
+
+	//Request 6, to XSLTBPL, XSLTBPL2
+	Set tSC=..SendRequestSync("XSLTBPL",Sending10)
+	Set tSC=..SendRequestSync("XSLTBPL2",Sending10)
+	
+	//Request 7, to XSLTRouter
+	Set tSC=..SendRequestSync("XSLTRouter",Sending10)
+  quit tSC
+]]></Implementation>
+</Method>
+
+<XData name="PRPAIN201311UV02">
+<Data><![CDATA[
+<?xml version="1.0" ?>
+<PRPA_IN201311UV02 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ITSVersion="XML_1.0" xsi:schemaLocation="urn:hl7-org:v3 ../multicacheschemas/PRPA_IN201311UV02.xsd" xmlns="urn:hl7-org:v3">
+	<id root="2.16.156.10011.0" extension="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
+	<creationTime value="20070803130624"/>
+	<interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201311UV02"/>
+	<processingCode code="P"/>
+	<processingModeCode code="R"/>
+	<acceptAckCode code="AL"/>
+	<receiver typeCode="RCV">
+		<device classCode="DEV" determinerCode="INSTANCE">
+			<id root="2.16.156.10011.0.1.1" extension="2.16.156.10011.0.1.1"/>
+		</device>
+	</receiver>
+	<sender typeCode="SND">
+		<device classCode="DEV" determinerCode="INSTANCE">
+			<id root="2.16.156.10011.0.1.2" extension="2.16.156.10011.0.1.2"/>
+		</device>
+	</sender>
+	<controlActProcess classCode="CACT" moodCode="EVN">
+		<subject typeCode="SUBJ">
+			<registrationRequest classCode="REG" moodCode="RQO">
+				<statusCode code="active"/>
+				<subject1 typeCode="SBJ">
+					<patient classCode="PAT">
+						<!--本地系统的患者ID -->
+						<id root="2.16.156.10011.0.2.2" extension="患者ID"/>
+						<statusCode code="active"/>
+						<effectiveTime value="20111212141414"/>
+						<patientPerson>
+							<!--身份证号-->
+							<id root="2.16.156.10011.1.3" extension="120109197706015516"/>
+							<!--姓名-->
+							<name use="L">刘永好</name>
+							<!--联系电话-->
+							<telecom value="028-2222444" use="H"/>
+							<!--性别-->
+							<administrativeGenderCode code="1" codeSystem="2.16.156.10011.2.3.3.4" displayName="男性"/>
+							<!--出生时间-->
+							<birthTime value="19570323"/>
+							<!--联系地址-->
+							<addr use="PUB">
+								<!--非结构化地址（完整地址描述） -->
+								<streetAddressLine partType="SAL">四川省成都市双流县红沙村3号</streetAddressLine>
+								<!--地址-省（自治区、直辖市）   -->
+								<state language="CH">广东省</state>
+								<!--地址-市（地区）   -->
+								<city>广州市</city>
+								<!--地址-县（区）   -->
+								<county>越秀区</county>
+								<!-- 地址-乡（镇、街道办事处）   -->
+								<streetNameBase>童心街</streetNameBase>
+								<!-- 地址-村（街、路、弄等）   -->
+								<streetName>下塘西路</streetName>
+								<!-- 地址-门牌号码 -->
+								<houseNumber>39号</houseNumber>
+								<!-- 邮政编码-->
+								<postalCode>510000</postalCode>
+							</addr>
+							<!--婚姻状况-->
+							<maritalStatusCode code="10" codeSystem="2.16.156.10011.2.3.3.5" displayName="未婚"/>
+							<!--民族-->
+							<ethnicGroupCode code="01" codeSystem="2.16.156.10011.2.3.3.3" displayName="汉族"/>
+							<!--职业类别代码-->
+							<asEmployee classCode="EMP">
+								<occupationCode code="13" codeSystem="2.16.156.10011.2.3.3.7" displayName="专业技术人员"/>
+								<employerOrganization classCode="ORG" determinerCode="INSTANCE">
+									<!--工作单位名称-->
+									<name>XXX学校</name>
+									<contactParty classCode="CON">
+										<!--工作联系电话-->
+										<telecom value="028-9999999" use="WP"/>
+									</contactParty>
+								</employerOrganization>
+							</asEmployee>
+							<asOtherIDs classCode="PAT">
+								<!--健康卡号-->
+								<id root="2.16.156.10011.1.19" extension="38273N237"/>
+								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+									<!--健康卡发放机构代码-->
+									<id root="2.16.156.10011.1.5" extension="XXXXX"/>
+								</scopingOrganization>
+							</asOtherIDs>
+							<asOtherIDs classCode="PAT">
+								<!--城乡居民健康档案编号-->
+								<id root="2.16.156.10011.1.2" extension="38273N237"/>
+								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+									<!--建档医疗机构组织机构代码-->
+									<id root="2.16.156.10011.1.5" extension="XXXXX"/>
+								</scopingOrganization>
+							</asOtherIDs>
+							<!--联系人-->
+							<personalRelationship>
+								<code/>
+								<!--联系人电话-->
+								<telecom use="H" value="028-8888888"/>
+								<relationshipHolder1 classCode="PSN" determinerCode="INSTANCE">
+									<!--联系人姓名-->
+									<name>刘好</name>
+								</relationshipHolder1>
+							</personalRelationship>
+						</patientPerson>
+						<providerOrganization classCode="ORG" determinerCode="INSTANCE">
+							<id root="2.16.156.10011.1.5" extension="XXXXX"/>
+							<name use="L">无锡中医院</name>
+							<contactParty classCode="CON"/>
+						</providerOrganization>
+						<!--医疗保险信息-->
+						<coveredPartyOf typeCode="COV">
+							<coverageRecord classCode="COV" moodCode="EVN">
+								<beneficiary typeCode="BEN">
+									<beneficiary classCode="MBR">
+										<code code="1" codeSystem="2.16.156.10011.2.3.1.248" codeSystemName="医疗保险类别代码" displayName="城镇职工基本医疗保险"/>
+									</beneficiary>
+								</beneficiary>
+							</coverageRecord>
+						</coveredPartyOf>
+					</patient>
+				</subject1>
+				<author typeCode="AUT">
+					<assignedEntity classCode="ASSIGNED">
+						<id root="2.16.156.10011.0.3.2" extension="登记人ID"/>
+						<assignedPerson classCode="PSN" determinerCode="INSTANCE">
+							<name use="L">赵武</name>
+						</assignedPerson>
+					</assignedEntity>
+				</author>
+			</registrationRequest>
+		</subject>
+	</controlActProcess>
+</PRPA_IN201311UV02>
+]]></Data>
+</XData>
+
+<XData name="C0001Sample">
+<Data><![CDATA[
+<?xml version="1.0" ?>
+<C0001>
+	<createTime>2018-06-28 16:58:14</createTime>
+	<confidentialityCode>N</confidentialityCode>
+	<docCode>C0001</docCode>
+	<docUID>1234-1234-1234-1234</docUID>
+	<title>病历概要</title>
+	<patient>
+		<healthCardNumber>021043</healthCardNumber>
+		<patientNumber>111</patientNumber>
+		<name>王x祥</name>
+		<telcom>15175715266</telcom>
+		<address>
+			<streetName>城关镇王街村617号</streetName>
+			<province>河北</province>
+			<city>沧州</city>
+		</address>
+		
+		<nationalIdNumber>132923195011232817</nationalIdNumber>
+		<birthTime>19501123</birthTime>
+		<administrativeGender>
+			<value>
+				<code>1</code>
+				<displayName>男性</displayName>
+			</value>
+		</administrativeGender>
+		<ethnicGroup>
+			<value>
+				<code>1</code>
+				<displayName>汉族</displayName>
+			</value>
+			<maritalStatusCode>
+				<value>
+					<code>1</code>
+					<displayName>已婚</displayName>
+				</value>
+			</maritalStatusCode>
+			<employerOrganization>
+				<name>工作单位名称</name>
+				<identifier>444</identifier>
+			</employerOrganization>
+		</ethnicGroup>
+		<employerOrganization>
+			<name>县招待所</name>
+			<telcom>15175715266</telcom>
+		</employerOrganization>
+		<age>68</age>
+	</patient>
+	<author>
+		<id>3434343</id>
+		<name>李医生</name>
+		<representedOrganization>
+			<identifier>12345</identifier>
+			<name>周昆</name>
+		</representedOrganization>
+	</author>
+	<authenticator>
+		<professionalTechnicalPosition>主治医师</professionalTechnicalPosition>
+		<name>铁炉堡</name>
+		<isLegal>1</isLegal>
+	</authenticator>
+	<custodian>
+		<name>无锡中医院</name>
+		<id>1234</id>
+	</custodian>
+	<participants>
+		<participant>
+			<telecom>0332-202003243</telecom>
+			<name>李言</name>
+			<address>
+				<streetName>城关镇王街村617号</streetName>
+				<province>河北</province>
+				<city>沧州</city>
+			</address>
+		</participant>
+	</participants>
+	<DE04.50.001.00>
+		<value>
+			<code>2</code>
+			<displayName>阴性</displayName>
+		</value>
+	</DE04.50.001.00>
+	<DE04.50.010.00>
+		<value>
+			<code>1</code>
+			<displayName>A型</displayName>
+		</value>
+	</DE04.50.010.00>
+	<DE02.10.026.00set>
+		<e02600>
+			<value>患者既往有高血压病史10余年，痛风，输尿管结石多年，患者有长期门诊口服降压药.</value>
+		</e02600>
+	</DE02.10.026.00set>
+	<DE02.10.061.00set>
+		<e06100>
+			<value>1982年:阑尾切除手术 ，完全恢复，无随访</value>
+		</e06100>
+	</DE02.10.061.00set>
+	<DE02.10.098.00set>
+		<e09800>
+			<value>已婚已育，儿女均体健</value>
+		</e09800>
+	</DE02.10.098.00set>
+	<DE02.10.022.00set>
+		<e02200>
+			<value>过敏反应：青霉素――皮疹</value>
+		</e02200>
+	</DE02.10.022.00set>
+	<DE02.10.101.00set>
+		<e10100>
+			<value>乙肝疫苗</value>
+		</e10100>
+	</DE02.10.101.00set>
+	<DE02.10.097.00>
+		<value>个人史描述</value>
+	</DE02.10.097.00>
+	<DE02.10.103.00set>
+		<e10300>
+			<value>家族史描述一</value>
+		</e10300>
+	</DE02.10.103.00set>
+	<DE08.10.026.00>
+		<value>内分泌科</value>
+	</DE08.10.026.00>
+	<DE02.01.060.00>
+		<value>
+			<code>1</code>
+			<displayName>门诊</displayName>
+		</value>
+	</DE02.01.060.00>
+	<DE01.00.010.00/>
+	<PrimaryDiagnosises>
+		<PrimaryDiagnosis>
+			<DE05.01.024.00>
+				<value>
+					<code>E10.901</code>
+					<displayName>胰岛素依赖型糖尿病</displayName>
+				</value>
+			</DE05.01.024.00>
+			<DE05.10.113.00>
+				<value>
+					<code>1</code>
+					<displayName>治愈</displayName>
+				</value>
+			</DE05.10.113.00>
+		</PrimaryDiagnosis>
+	</PrimaryDiagnosises>
+	<ZYdiagnosises>
+		<ZYDiagnosis>
+			<DE05.10.130.00>
+				<value>
+					<code>BEA</code>
+					<displayName>儿科癌病类</displayName>
+				</value>
+			</DE05.10.130.00>
+		</ZYDiagnosis>
+	</ZYdiagnosises>
+	<DE07.00.007.00>
+		<value>
+			<code>1</code>
+			<displayName>自费</displayName>
+		</value>
+	</DE07.00.007.00>
+	<DE07.00.004.00>
+		<value>100</value>
+	</DE07.00.004.00>
+	<DE07.00.001.00>
+		<value>20</value>
+	</DE07.00.001.00>
+</C0001>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.XML.XPathBO">
+<Description>
+如果请求里的中文不是UTF8, 会出现XML parser错误， 需要先转换编码.
+如果请求的xml带有default xmlns, 必须设置PrefixMappings, 并在xpath路径上注明是那个namespace</Description>
+<Super>Ens.BusinessOperation</Super>
+<TimeChanged>65602,77645.684907</TimeChanged>
+<TimeCreated>65290,66398.307652</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Method name="ProcessXPathExample">
+<FormalSpec>pRequest:Ens.StreamContainer,*pResponse:Ens.StringResponse</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+        
+  // Create an XPATH Document instance from the stream of XML
+  Set tSC = ##class(%XML.XPATH.Document).CreateFromStream(pRequest.Stream,.tDocument)
+  If $$$ISERR(tSC) Quit
+  set tDocument.PrefixMappings="s urn:hl7-org:v3"
+      
+  //Get a XPATH Value, "患者姓名"
+  //如果PRPA_IN201311UV02带有xlmns,以下method不工作，待查
+  Set tStatus = tDocument.EvaluateExpression("/s:PRPA_IN201311UV02/s:controlActProcess/s:subject/s:registrationRequest/s:subject1/s:patient/s:id", "@extension", .tResults)
+  if $$$ERROR(tStatus) Quit tStatus
+  if tResults.Count()=0 Quit "no correct result"
+
+	Set pResponse=##class(Ens.StringResponse).%New()
+	Set pResponse.StringValue="ResultCount is:"_tResults.Count()_",ResultType is:"_tResults.GetAt(1).Type_", Value is: "_tResults.GetAt(1).Value
+ 
+        	
+  //Get XPATH DOM : "Sender/Device"
+  //通常不需要使用XPath取一个DOM结构。万一需要， 那么取得的是一个%XML.XPATH.ROMResult的list, 从这个类中可以得到每个node的name, attribute, text等等
+  ///具体操作见%XML.XPATH.Document.ExampleDisplayResult()
+  Set tSC = tDocument.EvaluateExpression("/s:PRPA_IN201311UV02/s:sender/s:device",".",.tResults)
+  If $$$ISERR(tSC) Quit
+	Write !, "---------------- Display Patient Address ---------------",!
+	Write "tResults Count is :"_tResults.Count(),!
+  Write "the Type is : "_tResults.GetAt(1).Type,!
+  Do ##class(%XML.XPATH.Document).ExampleDisplayResults(tResults)
+     
+  quit $$$OK
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+	<MapItem MessageType="Ens.StreamContainer"> 
+		<Method>ProcessXPathExample</Method>
+	</MapItem>
+</MapItems>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.XML.XPathBPL.Context">
+<Description>
+This class is generated by the SEDemo.XML.XPathBPL BPL class.
+This class should not be edited or modified in any way.
+Do not make direct use of this class in your application.</Description>
+<ClassType>persistent</ClassType>
+<CompileAfter>SEDemo.XML.XPathBPL</CompileAfter>
+<IncludeCode/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BP.Context</Super>
+<TimeChanged>65603,2754.190464</TimeChanged>
+<TimeCreated>65602,37990.540729</TimeCreated>
+<GeneratedBy>Ens.BPL.Compiler.CLS</GeneratedBy>
+
+<Property name="tStream">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Property name="tString">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DefaultData>ContextDefaultData1</DefaultData>
+<Data name="ContextDefaultData1">
+<Structure>listnode</Structure>
+<Subscript>"Context"</Subscript>
+<Value name="1">
+<Value>tString</Value>
+</Value>
+<Value name="2">
+<Value>tStream</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XPathBPL.Thread1">
+<Description>
+This class is generated by the SEDemo.XML.XPathBPL BPL class.
+This class should not be edited or modified in any way.
+Do not make direct use of this class in your application.</Description>
+<ClassType>persistent</ClassType>
+<CompileAfter>SEDemo.XML.XPathBPL</CompileAfter>
+<IncludeCode/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BP.Thread</Super>
+<TimeChanged>65603,2754.640446</TimeChanged>
+<TimeCreated>65603,2754.18159</TimeCreated>
+<GeneratedBy>Ens.BPL.Compiler.CLS</GeneratedBy>
+
+<Method name="S1">
+<FormalSpec>process:Ens.BusinessProcess,context:Ens.BP.Context,synctimedout:%Boolean,syncresponses:%ArrayOfObjects(ELEMENTTYPE="%Library.Persistent"),request:%Library.Persistent,response:%Library.Persistent</FormalSpec>
+<Language>objectscript</Language>
+<PublicList>process,context</PublicList>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ Set $ZT="Trap",status=$$$OK do {
+ Set %document=$Get(%BPLVARS(request.Stream))
+ If %document="" {
+    Set status=##class(%XML.XPATH.Document).CreateFromStream(request.Stream,.%document,"","",0,,)
+    If $$$ISERR(status) Quit
+    Set %BPLVARS(request.Stream)=%document
+ }
+ kill %results
+ Set status=%document.EvaluateExpression("/patient/name","text()",.%results)
+ If $$$ISERR(status) Quit
+ If %results.Count()&&(%results.GetAt(1).Type=1) Set context.tString=%results.GetAt(1).Value
+ Do ##class(Ens.Util.Trace).WriteTrace("user","SEDemo.XML.XPathBPL","S1",context.tString)
+ Set status=$$$OK,response.StringValue=context.tString
+ If $$$ISERR(status) Quit
+ Do process.ClearAllPendingResponses()
+ Set ..%NextState="Stop"
+ } while (0)
+Exit Quit ..ManageState(status)
+Trap Set $ZT="",status=..ManageStatus(status,"S1") Goto Exit
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XPathBPL">
+<Description><![CDATA[
+演示<xpath>的使用：对stream里的xml做xpath操作，只适用取值结果为一个简单值得情况，不适用结果为一个DOM结构。有可能需要将请求消息里的中文编码变成UTF8,否则<xpath>无法正常处理中文]]></Description>
+<Super>Ens.BusinessProcessBPL</Super>
+<TimeChanged>65603,2754.030272</TimeChanged>
+<TimeCreated>65283,41704.741381</TimeCreated>
+
+<XData name="BPL">
+<Description>
+BPL Definition</Description>
+<XMLNamespace>http://www.intersystems.com/bpl</XMLNamespace>
+<Data><![CDATA[
+<process language='objectscript' request='Ens.StreamContainer' response='Ens.StringResponse' height='2000' width='2000' >
+<context>
+<property name='tString' type='%String' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='' />
+</parameters>
+</property>
+<property name='tStream' type='%Stream.GlobalCharacter' instantiate='0' />
+</context>
+<sequence xend='200' yend='550' >
+<xpath name='Get XPath Value' source='request.Stream' expression='text()' context='/patient/name' property='context.tString' xpos='200' ypos='250' />
+<trace name='Display the Value' value='context.tString' xpos='200' ypos='350' />
+<assign name="Set Response" property="response.StringValue" value="context.tString" action="set" xpos='200' ypos='450' >
+<annotation><![CDATA[send xpath evaluation result to caller]]]]><![CDATA[></annotation>
+</assign>
+</sequence>
+</process>
+]]></Data>
+</XData>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XPathBPL2.Context">
+<Description>
+This class is generated by the SEDemo.XML.XPathBPL2 BPL class.
+This class should not be edited or modified in any way.
+Do not make direct use of this class in your application.</Description>
+<ClassType>persistent</ClassType>
+<CompileAfter>SEDemo.XML.XPathBPL2</CompileAfter>
+<IncludeCode/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BP.Context</Super>
+<TimeChanged>65603,3615.802259</TimeChanged>
+<TimeCreated>65603,2914.18765</TimeCreated>
+<GeneratedBy>Ens.BPL.Compiler.CLS</GeneratedBy>
+
+<Property name="tStream">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Property name="tString">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DefaultData>ContextDefaultData1</DefaultData>
+<Data name="ContextDefaultData1">
+<Structure>listnode</Structure>
+<Subscript>"Context"</Subscript>
+<Value name="1">
+<Value>tStream</Value>
+</Value>
+<Value name="2">
+<Value>tString</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XPathBPL2.Thread1">
+<Description>
+This class is generated by the SEDemo.XML.XPathBPL2 BPL class.
+This class should not be edited or modified in any way.
+Do not make direct use of this class in your application.</Description>
+<ClassType>persistent</ClassType>
+<CompileAfter>SEDemo.XML.XPathBPL2</CompileAfter>
+<IncludeCode/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BP.Thread</Super>
+<TimeChanged>65603,3616.292662</TimeChanged>
+<TimeCreated>65603,3615.793638</TimeCreated>
+<GeneratedBy>Ens.BPL.Compiler.CLS</GeneratedBy>
+
+<Method name="S1">
+<FormalSpec>process:Ens.BusinessProcess,context:Ens.BP.Context,synctimedout:%Boolean,syncresponses:%ArrayOfObjects(ELEMENTTYPE="%Library.Persistent"),request:%Library.Persistent,response:%Library.Persistent</FormalSpec>
+<Language>objectscript</Language>
+<PublicList>process,context</PublicList>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ Set $ZT="Trap",status=$$$OK do {
+ Set %document=$Get(%BPLVARS(request.Stream))
+ If %document="" {
+    Set status=##class(%XML.XPATH.Document).CreateFromStream(request.Stream,.%document,"","",0,,"s urn:hl7-org:v3")
+    If $$$ISERR(status) Quit
+    Set %BPLVARS(request.Stream)=%document
+ }
+ kill %results
+ Set status=%document.EvaluateExpression("/s:PRPA_IN201311UV02/s:controlActProcess/s:subject/s:registrationRequest/s:subject1/s:patient/s:id","@extension",.%results)
+ If $$$ISERR(status) Quit
+ If %results.Count()&&(%results.GetAt(1).Type=1) Set context.tString=%results.GetAt(1).Value
+ Do ##class(Ens.Util.Trace).WriteTrace("user","SEDemo.XML.XPathBPL2","S1",context.tString)
+ Set status=$$$OK,response.StringValue=context.tString
+ If $$$ISERR(status) Quit
+ Do process.ClearAllPendingResponses()
+ Set ..%NextState="Stop"
+ } while (0)
+Exit Quit ..ManageState(status)
+Trap Set $ZT="",status=..ManageStatus(status,"S1") Goto Exit
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XPathBPL2">
+<Description><![CDATA[
+演示<xpath>的使用：对stream里的xml做xpath操作，
+只适用取值结果为一个简单值得情况，不适用结果为一个DOM结构。
+有可能需要将请求消息里的中文编码变成UTF8,否则<xpath>无法正常处理中文]]></Description>
+<Super>Ens.BusinessProcessBPL</Super>
+<TimeChanged>65603,3614.641993</TimeChanged>
+<TimeCreated>65283,41704.741381</TimeCreated>
+
+<XData name="BPL">
+<Description>
+BPL Definition</Description>
+<XMLNamespace>http://www.intersystems.com/bpl</XMLNamespace>
+<Data><![CDATA[
+<process language='objectscript' request='Ens.StreamContainer' response='Ens.StringResponse' height='2000' width='2000' >
+<context>
+<property name='tString' type='%String' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='' />
+</parameters>
+</property>
+<property name='tStream' type='%Stream.GlobalCharacter' instantiate='0' />
+</context>
+<sequence xend='200' yend='550' >
+<xpath name='Get XPath Value' source='request.Stream' prefixmappings='"s urn:hl7-org:v3"' expression='@extension' context='/s:PRPA_IN201311UV02/s:controlActProcess/s:subject/s:registrationRequest/s:subject1/s:patient/s:id' property='context.tString' xpos='200' ypos='250' />
+<trace name='Display the Value' value='context.tString' xpos='200' ypos='350' />
+<assign name="Set Response" property="response.StringValue" value="context.tString" action="set" xpos='200' ypos='450' >
+<annotation><![CDATA[send xpath evaluation result to caller]]]]><![CDATA[></annotation>
+</assign>
+</sequence>
+</process>
+]]></Data>
+</XData>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XPathBasic">
+<Description>
+%XML.XPATH.Document的几个问题
+当root element有namespace的时候怎么处理？</Description>
+<Super>%XML.XPATH.Document</Super>
+<TimeChanged>65603,616.759246</TimeChanged>
+<TimeCreated>64928,46746.759222</TimeCreated>
+
+<Method name="Example4">
+<Description>
+处理中文，原始输入为Unicode, 要改变成UTF8才可以被xml parser处理，否则在createFromString/CreateFromStream()时会出错</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+    write "从字符串取一个value:", !
+    Set tString="<?xml version=""1.0""?><patient><name first=""嫦"" last=""娥"">嫦娥</name></patient>" 
+    Set tString2=$ZCVT(tString,"O","UTF8")
+    Set sc=##class(%XML.XPATH.Document).CreateFromString(tString2,.tDoc)
+    quit:'sc sc 
+    Set tSC=tDoc.EvaluateExpression("/name","text()",.tResults)
+    do ..ExampleDisplayResults(tResults)
+    
+    write !,!, "从stream取一个DOM:", !
+    Set tStream=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||ExampleXML2").Data
+    Set sc=##class(%XML.XPATH.Document).CreateFromStream(tStream,.tDoc)
+    If $$$ISERR(sc) Quit sc
+    set tDoc.PrefixMappings="s urn:hl7-org:v3"
+    Set tSC=tDoc.EvaluateExpression("/s:staff/s:doc",".",.tResults)
+    If $$$ISERR(tSC) Quit tSC
+    do ..ExampleDisplayResults(tResults)
+
+    Quit tSC
+]]></Implementation>
+</Method>
+
+<XData name="ExampleXML2">
+<Data><![CDATA[
+<?xml version="1.0"?>
+<staff xmlns="urn:hl7-org:v3">
+    <doc type="consultant">
+    <name first="David" last="Marston">嫦娥</name>
+    <name first="八戒" last="猪">猪八戒</name>
+    </doc>
+</staff>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTBO">
+<Description><![CDATA[
+业务操作中实现xslt转换，模仿%XML.XSL.Transformer类中的Example1(),将请求<C0001>里面的patient节点用xslt拷贝返回。
+源xslt从XData读入，必须是一个完整的xslt, 不能xslt中include其他xslt文件]]></Description>
+<Super>Ens.BusinessOperation</Super>
+<TimeChanged>65603,82587.468807</TimeChanged>
+<TimeCreated>65175,57399.964293</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Method name="Example1">
+<Description>
+从XData读取XSLT成一个Stream, 然后用%XML.XSLT.Transformer.TransformStream()来转换</Description>
+<FormalSpec>pRequest:Ens.StreamContainer,*pResponse:Ens.StreamContainer</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+        // 从XDATA读入xslt
+        Set tXSL=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||Copy").Data
+        If '$IsObject(tXSL) Set tSC=%objlasterror Quit
+        
+        // 执行转换，出参tOutput的类型是%BinaryStream
+        Set tSC=##class(%XML.XSLT.Transformer).TransformStream(pRequest.Stream,tXSL,.tOutput)
+        If $$$ISERR(tSC) Quit
+        
+        //将结果里的中文转为UTF8编码
+        do ##class(SEDemo.Util.FunctionSet).toUTF8Input(tOutput)
+        
+        //return repsonse message
+        set pResponse=##class(Ens.StreamContainer).%New()
+        Set tSC=pResponse.StreamSet(tOutput)
+
+	return tSC
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+	<MapItem MessageType="Ens.StreamContainer">
+		<Method>Example1</Method>
+	</MapItem>
+</MapItems>
+]]></Data>
+</XData>
+
+<XData name="Copy">
+<Data><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
+	<xsl:template match="/">
+	<XSLTResult>
+		<xsl:copy-of select="*"/>
+	</XSLTResult>
+	</xsl:template>
+</xsl:stylesheet>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTBO2">
+<Description><![CDATA[
+和XSLTBO处理相同的源XML, 将其转换成CDA文档
+不同的是本类中将xslt源文件放在文件系统 install_dir\CSP\xslt\WS\Document
+这种方法可以使用一个xslt包，如下面C0001.xsl里面包含了很多模板在其他的文件，定义在C0001.xsl中：
+<xsl:include href="CDA-Support-Files/Export/Common/CDAHeader.xsl"/>
+<xsl:include href="CDA-Support-Files/Export/Common/PatientInformation.xsl"/>
+<xsl:include href="CDA-Support-Files/Export/Common/AuthorAuthenticatorCustodian.xsl"/>
+	....]]></Description>
+<Super>Ens.BusinessOperation</Super>
+<TimeChanged>65603,79057.959538</TimeChanged>
+<TimeCreated>65175,57399.964293</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Parameter name="XSLTDIRECTORY">
+<Expression>$System.Util.InstallDirectory()_"CSP\xslt\WS\Document\"</Expression>
+</Parameter>
+
+<Method name="Example1">
+<FormalSpec>pRequest:Ens.StreamContainer,*pResponse:Ens.StreamContainer</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+		//从文件系统加载xslt，生成CompiledStyleSheet对象
+		set XSLFileName =..#XSLTDIRECTORY_"C0001.xsl"
+		Set tSC=##class(%XML.XSLT.CompiledStyleSheet).CreateFromFile(XSLFileName,.tXSL)
+		if $$$ISERR(tSC) {
+			do $System.Status.DisplayError(tSC) 
+			quit $$$ERROR($$$GeneralError, "Cant create stylesheet ")
+		}
+
+		// Transform the source according to the XSL
+		Set tSC=##class(%XML.XSLT.Transformer).TransformStreamWithCompiledXSL(pRequest.Stream,tXSL,.tOutput )
+		If $$$ISERR(tSC) Quit tSC
+											
+		//将结果里的中文转为UTF8编码
+		do ##class(SEDemo.Util.FunctionSet).toUTF8Input(tOutput)
+					
+		//return repsonse message
+		set pResponse=##class(Ens.StreamContainer).%New()
+		Set tSC=pResponse.StreamSet(tOutput)
+		Quit tSC
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+	<MapItem MessageType="Ens.StreamContainer">
+		<Method>Example1</Method>
+	</MapItem>
+</MapItems>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTBO3">
+<Description>
+Demo怎么通过code来做XSLT:</Description>
+<Super>Ens.BusinessOperation</Super>
+<TimeChanged>65603,79613.299797</TimeChanged>
+<TimeCreated>65175,57399.964293</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Parameter name="XSLTDIRECTORY">
+<Expression>$System.Util.InstallDirectory()_"CSP\xslt\WS\Document\"</Expression>
+</Parameter>
+
+<Method name="Example1">
+<FormalSpec>pRequest:Ens.StreamContainer,*pResponse:Ens.StreamContainer</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+		set filename="C0001.xsl"
+		set tTransformer = ##class(SEDemo.Util.XSLTTransformer).%New()
+		set tTransformer.XSLTDirectory=..#XSLTDIRECTORY
+		set tSC = tTransformer.Transform(pRequest.Stream,filename,.tOutput,1)
+		If $$$ISERR(tSC) Quit tSC
+					
+		//将结果里的中文转为UTF8编码
+		do ##class(SEDemo.Util.FunctionSet).toUTF8Input(tOutput)
+					
+		//return repsonse message
+		set pResponse=##class(Ens.StreamContainer).%New()
+		Set tSC=pResponse.StreamSet(tOutput)
+		Quit tSC
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+	<MapItem MessageType="Ens.StreamContainer">
+		<Method>Example1</Method>
+	</MapItem>
+</MapItems>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTBPL.Context">
+<Description>
+This class is generated by the SEDemo.XML.XSLTBPL BPL class.
+This class should not be edited or modified in any way.
+Do not make direct use of this class in your application.</Description>
+<ClassType>persistent</ClassType>
+<CompileAfter>SEDemo.XML.XSLTBPL</CompileAfter>
+<IncludeCode/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BP.Context</Super>
+<TimeChanged>65603,82605.702692</TimeChanged>
+<TimeCreated>65603,82605.29508</TimeCreated>
+<GeneratedBy>Ens.BPL.Compiler.CLS</GeneratedBy>
+
+<Property name="StreamIn">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Property name="StreamMed">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Property name="StreamOut">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DefaultData>ContextDefaultData1</DefaultData>
+<Data name="ContextDefaultData1">
+<Structure>listnode</Structure>
+<Subscript>"Context"</Subscript>
+<Value name="1">
+<Value>StreamIn</Value>
+</Value>
+<Value name="2">
+<Value>StreamMed</Value>
+</Value>
+<Value name="3">
+<Value>StreamOut</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTBPL.Thread1">
+<Description>
+This class is generated by the SEDemo.XML.XSLTBPL BPL class.
+This class should not be edited or modified in any way.
+Do not make direct use of this class in your application.</Description>
+<ClassType>persistent</ClassType>
+<CompileAfter>SEDemo.XML.XSLTBPL</CompileAfter>
+<IncludeCode/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BP.Thread</Super>
+<TimeChanged>65603,82605.711509</TimeChanged>
+<TimeCreated>65603,82605.295455</TimeCreated>
+<GeneratedBy>Ens.BPL.Compiler.CLS</GeneratedBy>
+
+<Method name="S1">
+<FormalSpec>process:Ens.BusinessProcess,context:Ens.BP.Context,synctimedout:%Boolean,syncresponses:%ArrayOfObjects(ELEMENTTYPE="%Library.Persistent"),request:%Library.Persistent,response:%Library.Persistent</FormalSpec>
+<Language>objectscript</Language>
+<PublicList>process,context</PublicList>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ Set $ZT="Trap",status=$$$OK do {
+ Set status=$$$OK,context.StreamIn=request.Stream
+ If $$$ISERR(status) Quit
+ Do ##class(Ens.Util.Trace).WriteTrace("user","SEDemo.XML.XSLTBPL","S1","STEP 1")
+ Set iscTemp=context.StreamOut
+ Set status=##class(Ens.BP.Thread.Functions.XSLT).PerformXSLT("xdata://SEDemo.XML.XSLTBO:Copy",context.StreamIn,.iscTemp,.%params,"1.0",1,(process.QueueName()'="Ens.Actor"))
+ If $$$ISERR(status) Quit
+ Set context.StreamOut=iscTemp
+ Do {
+ set tempString=context.StreamOut.Read()
+ set tempString=$ZCVT(tempString,"I","UTF8",handler)
+ do context.StreamOut.Write(tempString)
+ } while (0)
+ If $$$ISERR(status) Quit
+ Set status=$$$OK,response.Stream=context.StreamOut
+ If $$$ISERR(status) Quit
+ Do process.ClearAllPendingResponses()
+ Set ..%NextState="Stop"
+ } while (0)
+Exit Quit ..ManageState(status)
+Trap Set $ZT="",status=..ManageStatus(status,"S1") Goto Exit
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTBPL">
+<Description><![CDATA[
+演示<xslt>的使用：<xslt>的输入输出为stream,都必须存于context, 不能直接从request输入也不能直接输出到response.]]></Description>
+<Super>Ens.BusinessProcessBPL</Super>
+<TimeChanged>65603,82605.254836</TimeChanged>
+<TimeCreated>65241,51967.256482</TimeCreated>
+
+<XData name="BPL">
+<Description>
+BPL Definition</Description>
+<XMLNamespace>http://www.intersystems.com/bpl</XMLNamespace>
+<Data><![CDATA[
+<process language='objectscript' request='Ens.StreamContainer' response='Ens.StreamContainer' height='2000' width='2000' >
+<context>
+<property name='StreamIn' type='%Stream.GlobalCharacter' instantiate='0' />
+<property name='StreamOut' type='%Stream.GlobalCharacter' instantiate='0' />
+<property name='StreamMed' type='%Stream.GlobalCharacter' instantiate='0' />
+</context>
+<sequence xend='200' yend='750' >
+<assign name="save input stream" property="context.StreamIn" value="request.Stream" action="set" xpos='200' ypos='250' >
+<annotation><![CDATA[要使用xlst活动，输入输出的stream必须存于context.]]]]><![CDATA[></annotation>
+</assign>
+<trace name='step 1' value='"STEP 1"' xpos='200' ypos='350' />
+<xslt name='使用xslt复制' xslurl='xdata://SEDemo.XML.XSLTBO:Copy' source='context.StreamIn' target='context.StreamOut' xsltversion='1.0' xpos='200' ypos='450' >
+<annotation>配置xdata加载xslt</annotation>
+</xslt>
+<code name='Convert to UTF8' xpos='200' ypos='550' >
+<annotation><![CDATA[把Stream的编码转换成UTF8，以解决中文乱码问题。这段code也可以写成一个Uitlity Funchtion在DT里使用。]]]]><![CDATA[></annotation>
+<![CDATA[ set tempString=context.StreamOut.Read()
+ set tempString=$ZCVT(tempString,"I","UTF8",handler)
+ do context.StreamOut.Write(tempString)]]]]><![CDATA[>
+</code>
+<assign name="set response" property="response.Stream" value="context.StreamOut" action="set" xpos='200' ypos='650' >
+<annotation><![CDATA[返回转换结果，便于测试]]]]><![CDATA[></annotation>
+</assign>
+</sequence>
+</process>
+]]></Data>
+</XData>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTBPL2.Context">
+<Description>
+This class is generated by the SEDemo.XML.XSLTBPL2 BPL class.
+This class should not be edited or modified in any way.
+Do not make direct use of this class in your application.</Description>
+<ClassType>persistent</ClassType>
+<CompileAfter>SEDemo.XML.XSLTBPL2</CompileAfter>
+<IncludeCode/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BP.Context</Super>
+<TimeChanged>65604,52726.263846</TimeChanged>
+<TimeCreated>65603,82481.412291</TimeCreated>
+<GeneratedBy>Ens.BPL.Compiler.CLS</GeneratedBy>
+
+<Property name="StreamIn">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Property name="StreamMed">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Property name="StreamOut">
+<Type>%Stream.GlobalCharacter</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DefaultData>ContextDefaultData1</DefaultData>
+<Data name="ContextDefaultData1">
+<Structure>listnode</Structure>
+<Subscript>"Context"</Subscript>
+<Value name="1">
+<Value>StreamIn</Value>
+</Value>
+<Value name="2">
+<Value>StreamMed</Value>
+</Value>
+<Value name="3">
+<Value>StreamOut</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTBPL2.Thread1">
+<Description>
+This class is generated by the SEDemo.XML.XSLTBPL2 BPL class.
+This class should not be edited or modified in any way.
+Do not make direct use of this class in your application.</Description>
+<ClassType>persistent</ClassType>
+<CompileAfter>SEDemo.XML.XSLTBPL2</CompileAfter>
+<IncludeCode/>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>Ens.BP.Thread</Super>
+<TimeChanged>65604,52726.791674</TimeChanged>
+<TimeCreated>65604,52726.251672</TimeCreated>
+<GeneratedBy>Ens.BPL.Compiler.CLS</GeneratedBy>
+
+<Method name="S1">
+<FormalSpec>process:Ens.BusinessProcess,context:Ens.BP.Context,synctimedout:%Boolean,syncresponses:%ArrayOfObjects(ELEMENTTYPE="%Library.Persistent"),request:%Library.Persistent,response:%Library.Persistent</FormalSpec>
+<Language>objectscript</Language>
+<PublicList>process,context</PublicList>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+ Set $ZT="Trap",status=$$$OK do {
+ Set status=$$$OK,context.StreamIn=request.Stream
+ If $$$ISERR(status) Quit
+ Set iscTemp=context.StreamOut
+ Set status=##class(Ens.BP.Thread.Functions.XSLT).PerformXSLT("file://\C:\InterSystems\HCDemo\CSP\xslt\WS\Document\Copy.xsl",context.StreamIn,.iscTemp,.%params,"1.0",1,(process.QueueName()'="Ens.Actor"))
+ If $$$ISERR(status) Quit
+ Set context.StreamOut=iscTemp
+ Do {
+ set tempString=context.StreamOut.Read()
+ set tempString=$ZCVT(tempString,"I","UTF8",handler)
+ do context.StreamOut.Write(tempString)
+ } while (0)
+ If $$$ISERR(status) Quit
+ Set status=$$$OK,response.Stream=context.StreamOut
+ If $$$ISERR(status) Quit
+ Do process.ClearAllPendingResponses()
+ Set ..%NextState="Stop"
+ } while (0)
+Exit Quit ..ManageState(status)
+Trap Set $ZT="",status=..ManageStatus(status,"S1") Goto Exit
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTBPL2">
+<Description>
+演示使用中使用外部文件的方式提供xslt</Description>
+<Super>Ens.BusinessProcessBPL</Super>
+<TimeChanged>65604,52722.906132</TimeChanged>
+<TimeCreated>65597,57702.054119</TimeCreated>
+
+<XData name="BPL">
+<Description>
+BPL Definition</Description>
+<XMLNamespace>http://www.intersystems.com/bpl</XMLNamespace>
+<Data><![CDATA[
+<process language='objectscript' request='Ens.StreamContainer' response='Ens.StreamContainer' height='2000' width='2000' >
+<context>
+<property name='StreamIn' type='%Stream.GlobalCharacter' instantiate='0' />
+<property name='StreamOut' type='%Stream.GlobalCharacter' instantiate='0' />
+<property name='StreamMed' type='%Stream.GlobalCharacter' instantiate='0' />
+</context>
+<sequence xend='200' yend='650' >
+<assign name="save input stream" property="context.StreamIn" value="request.Stream" action="set" xpos='200' ypos='250' >
+<annotation><![CDATA[输入输出的stream必须存于context.]]]]><![CDATA[></annotation>
+</assign>
+<xslt name='转换XML到CDA' xslurl='file://\C:\InterSystems\HCDemo\CSP\xslt\WS\Document\Copy.xsl' source='context.StreamIn' target='context.StreamOut' xsltversion='1.0' xpos='200' ypos='350' >
+<annotation>配置外部文件xslt
+新版必须在组件配置栏选择版本</annotation>
+</xslt>
+<code name='Convert to UTF8' xpos='200' ypos='450' >
+<annotation><![CDATA[把Stream的编码转换成UTF8，以解决中文乱码问题。这段code也可以写成一个Uitlity Funchtion在DT里使用。]]]]><![CDATA[></annotation>
+<![CDATA[ set tempString=context.StreamOut.Read()
+ set tempString=$ZCVT(tempString,"I","UTF8",handler)
+ do context.StreamOut.Write(tempString)]]]]><![CDATA[>
+</code>
+<assign name="set response" property="response.Stream" value="context.StreamOut" action="set" xpos='200' ypos='550' >
+<annotation><![CDATA[返回转换结果，便于测试]]]]><![CDATA[></annotation>
+</assign>
+</sequence>
+</process>
+]]></Data>
+</XData>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+</Storage>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTDT">
+<Super>Ens.DataTransformDTL</Super>
+<TimeChanged>65604,53034.214098</TimeChanged>
+<TimeCreated>65255,58747.817533</TimeCreated>
+<DependsOn>Ens.StreamContainer</DependsOn>
+
+<Parameter name="IGNOREMISSINGSOURCE">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="REPORTERRORS">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="TREATEMPTYREPEATINGFIELDASNULL">
+<Default>0</Default>
+</Parameter>
+
+<XData name="DTL">
+<XMLNamespace>http://www.intersystems.com/dtl</XMLNamespace>
+<Data><![CDATA[
+<transform sourceClass='Ens.StreamContainer' targetClass='Ens.StreamContainer' create='new' language='objectscript' >
+<assign value='##class(SEDemo.Util.FunctionSet).XSLT(source.Stream,"C:\InterSystems\HCDemo\CSP\xslt\WS\Document\C0001.xsl")' property='target.Stream' action='set' />
+</transform>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.XML.XSLTRouter">
+<Description>
+</Description>
+<Super>Ens.Rule.Definition</Super>
+<TimeChanged>65604,52335.475084</TimeChanged>
+<TimeCreated>65287,39801.717765</TimeCreated>
+
+<Parameter name="RuleAssistClass">
+<Default>EnsLib.MsgRouter.RuleAssist</Default>
+</Parameter>
+
+<XData name="RuleDefinition">
+<XMLNamespace>http://www.intersystems.com/rule</XMLNamespace>
+<Data><![CDATA[
+<ruleDefinition alias="" context="EnsLib.MsgRouter.RoutingEngine" production="SEDemo.WS.XSLTDemo.Production">
+<ruleSet name="" effectiveBegin="" effectiveEnd="">
+<rule name="" disabled="false">
+<when condition="1">
+<send transform="SEDemo.XML.XSLTDT" target="Target1"></send>
+<return></return>
+</when>
+</rule>
+</ruleSet>
+</ruleDefinition>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="SEDemo.XML.todo">
+<Description>
+EDI.XML的测试过程， 以后整理</Description>
+<IncludeCode>%callout,%occSAX,%occXSLT,%syNLS</IncludeCode>
+<Super>%RegisteredObject</Super>
+<TimeChanged>65603,8262.009347</TimeChanged>
+<TimeCreated>64710,42660.006361</TimeCreated>
+
+<Method name="testEvalate">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	
+	Set tSC=$$$OK
+    	do {// Get a stream of XML from the ExampleXML block contained in this class
+        		Set tSource=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||prpa").Data
+        		If '$IsObject(tSource) Set tSC=%objlasterror Quit
+   	 } while (0)
+	//set XSL
+    	Set tSC=##class(%XML.XSLT.CompiledStyleSheet).CreateFromFile("C:\InterSystems\Ens2017\CSP\xslt\PatientRegistryAddRequestSuccess.xsl",.tXSL)
+	if $$$ISERR(tSC) 
+	{
+        		do $System.Status.DisplayError(tSC) 
+        		quit $$$ERROR($$$GeneralError, "Cant create stylesheet ")
+   	 }
+	
+	#; Get a Callback handler to handle the extension calls to cache-evaluate()	
+	Set tCallbackHandler=##Class(IOT.Util.XSLTHelper).%New()
+	
+	Set tSC=##class(%XML.XSLT.Transformer).TransformStreamWithCompiledXSL(tSource,tXSL,.tOutput ,,,tCallbackHandler)
+	if $$$ISERR(tSC) 
+	{
+        		do $System.Status.DisplayError(tSC) 
+        		quit $$$ERROR($$$GeneralError, "translation error")
+   	 }
+ 	do tOutput.Rewind()
+ 	While (tOutput.AtEnd = 0) {
+        	Set len = 100
+        	Write tOutput.Read(.len)
+    }
+]]></Implementation>
+</Method>
+
+<Method name="testEDIDocument">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+ 	set string="<Patient xmlns='http://myapp.com'>"
+    	_"<Name>Jack Brown</Name>"
+    	_"<Address><Street>233 Main St</Street></Address>"
+    	_"<FavoriteColors><FavoriteColor>green</FavoriteColor><FavoriteColor>red</FavoriteColor></FavoriteColors>"
+    	_"</Patient>"
+    	set target=##class(EnsLib.EDI.XML.Document).ImportFromString(string,.status)
+    	if 'status {do $system.Status.DisplayError(status)  quit}
+    
+    //Use the DocType displayed in the Management Portal
+    //以下设置可以用UserValues代替hl7v3里面的property.
+    set target.DocType="MyApp:Patient"
+    do target.UserValues.SetAt("adddoc", "action")
+    
+    set pathvalue1=target.GetValueAt("Address.Street",,.status)
+    set pathvalue2=target.GetValueAt("FavoriteColors()",,.status)
+    set pathvalue3=target.GetValueAt("FavoriteColors(2)",,.status)
+    if 'status {do $system.Status.DisplayError(status)  quit}
+    write pathvalue1,!
+    w pathvalue2,!
+    w pathvalue3
+    zw target
+    w target.UserValues.GetAt("action")
+]]></Implementation>
+</Method>
+
+<Method name="testEDIDoc2">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+     Set tSC=$$$OK
+    do {
+    
+        // Get a stream of XML from the ExampleXML block contained in this class
+        Set tStream=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||prpa").Data
+        If '$IsObject(tStream) Set tSC=%objlasterror Quit
+        
+	
+    } while (0)	
+
+    set target=##class(EnsLib.EDI.XML.Document).ImportFromLibraryStream(tStream,.status)
+    	if 'status {do $system.Status.DisplayError(status)  quit}
+    
+    //Use the DocType displayed in the Management Portal
+    set target.DocType="PRPA_IN201311UV02:PRPA_IN201311UV02"
+    
+    set pathvalue1=target.GetValueAt("id.root",,.status)
+     if 'status {do $system.Status.DisplayError(status)  quit}
+    set pathvalue2=target.GetValueAt("id.extension",,.status)
+    if 'status {do $system.Status.DisplayError(status)  quit}
+    write pathvalue1,!
+    w pathvalue2,!
+    
+    set pathvalue3=target.GetValueAt("controlActProcess.subject.registrationRequest.subject1.patient.id().extension",,.status)
+    set pathvalue3=target.GetValueAt("controlActProcess.subject.registrationRequest.subject1.patient.choice.patientPerson.name()",,.status)
+     if 'status {do $system.Status.DisplayError(status)  quit}
+    w pathvalue3
+]]></Implementation>
+</Method>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Patient has been already created: ID=1; InpatientID=I1000; OutpatientId=O1000; PatientNumber=1000;
+
+]]></Content>
+</UDLText>
+
+<Method name="Example1">
+<Description>
+Evaluates an XPATH expression which returns a DOM Result</Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+    Set tSC=$$$OK
+    do {
+    
+        // Get a stream of XML from the ExampleXML block contained in this class
+        Set tStream=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||ExampleXML").Data
+        If '$IsObject(tStream) Set tSC=%objlasterror Quit
+        
+        // Create an XPATH Document instance from the stream of XML
+        Set tSC=##class(%XML.XPATH.Document).CreateFromStream(tStream,.tDocument)
+        If $$$ISERR(tSC) Quit
+      
+        Set tSC=tDocument.EvaluateExpression("/staff",".",.tResults)
+        If $$$ISERR(tSC) Quit
+        
+        Do ..ExampleDisplayResults(tResults)
+        
+    } while (0)
+    If $$$ISERR(tSC) Do $System.OBJ.DisplayError(tSC)
+    Quit
+]]></Implementation>
+</Method>
+
+<Method name="Example2">
+<Description>
+Evaluates an XPATH expression which returns a VALUE Result</Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+    Set tSC=$$$OK
+    do {
+    
+        // Get a stream of XML from the ExampleXML block contained in this class
+        Set tStream=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||ExampleXML").Data
+        If '$IsObject(tStream) Set tSC=%objlasterror Quit
+        
+        // Create an XPATH Document instance from the stream of XML
+        Set tSC=##class(%XML.XPATH.Document).CreateFromStream(tStream,.tDocument)
+        If $$$ISERR(tSC) Quit
+        
+        Set tSC=tDocument.EvaluateExpression("/staff","count(doc)",.tResults)
+        If $$$ISERR(tSC) Quit
+            
+        Do ..ExampleDisplayResults(tResults)
+        
+    } while (0)
+    If $$$ISERR(tSC) Do $System.OBJ.DisplayError(tSC)
+    Quit
+]]></Implementation>
+</Method>
+
+<Method name="Example3">
+<Description>
+Evaluates an XPATH expression which returns a VALUE Result ( demonstrates use of CreateFromString() )</Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+    #dim tSC As %Status
+    #dim tString As %String
+    #dim tStream As %AbstractStream
+    #dim tDocument As %XML.XPATH.Document
+    #dim tResults As %ListOfObjects
+    Set tSC=$$$OK
+    do {
+    
+        #; Get a stream of XML from the ExampleXML block contained in this class
+        Kill %objlasterror Set tStream=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||ExampleXML").Data
+        If '$IsObject(tStream) Set tSC=%objlasterror Quit
+        
+        #; Make sure the stream is rewound
+        Set tSC=tStream.Rewind() If $$$ISERR(tSC) Quit
+        
+        #; Get the contents of the stream and assign it to a string
+        Set tString=tStream.Read(32767)
+        
+        // Create an XPATH Document instance from the stream of XML
+        Set tSC=##class(%XML.XPATH.Document).CreateFromString(tString,.tDocument)
+        If $$$ISERR(tSC) Quit
+        
+        Set tSC=tDocument.EvaluateExpression("/staff","count(doc)",.tResults)
+        If $$$ISERR(tSC) Quit
+            
+        Do ..ExampleDisplayResults(tResults)
+        
+    } while (0)
+    If $$$ISERR(tSC) Do $System.OBJ.DisplayError(tSC)
+    Quit
+]]></Implementation>
+</Method>
+
+<Method name="ExampleDisplayResults">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pResults:%ListOfObjects(CLASSNAME="%XML.XPATH.Result")</FormalSpec>
+<Implementation><![CDATA[
+    For tI=1:1:pResults.Count()
+    {
+        Set tResult=pResults.GetAt(tI)
+        
+        if (tResult.Type=$$$XPATHDOM)
+        {
+            Write !,"XPATH DOM"
+            
+            While tResult.Read()
+            {   
+                If tResult.NodeType="element"
+                {
+                    Write !,tResult.NodeType,": ",tResult.Name  
+                    
+                    If tResult.HasAttributes {
+                        For tJ=1:1:tResult.AttributeCount
+                        {
+                            Do tResult.MoveToAttributeIndex(tJ)
+                            Write !,?9,tResult.NodeType,": ",tResult.Name,?25," Value: ",tResult.Value
+                        }
+                    }
+                } else {
+                    
+                    Write !,tResult.NodeType," : ",tResult.Name," Value: "
+                
+                    // Value can be a stream if result is greater than 32k in length
+                    Set tValue=tResult.Value
+                
+                    If $IsObject(tValue){
+                        Write ! Do tValue.OutputToDevice()
+                    } else {
+                        Write tValue
+                    }
+                }
+                Write !
+            }
+        } else {
+            
+            Write !,"XPATH VALUE",!
+            
+            Set tValue=tResult.Value
+            
+            // Test for value being a stream
+            If $IsObject(tValue){
+                Do tValue.OutputToDevice()
+            } else {
+                Write tValue
+            }
+        }
+    }
+]]></Implementation>
+</Method>
+
+<Method name="moxml">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	
+	Set tStream=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||insElement").Data
+        If '$IsObject(tStream) Set tSC=%objlasterror Quit
+        
+        // Create an XPATH Document instance from the stream of XML
+        Set tSC=##class(%XML.XPATH.Document).CreateFromStream(tStream,.tDocument1)
+        If $$$ISERR(tSC) Quit
+
+	Set tSC=tDocument1.EvaluateExpression("/staff","doc",.tResults1)
+	
+#;    do {
+#;	
+#;	// Get a stream of XML from the ExampleXML block contained in this class
+#;        Set tStream1=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||ExampleXML").Data
+#;        If '$IsObject(tStream) Set tSC=%objlasterror Quit
+#;        Set tSC=##class(%XML.XPATH.Document).CreateFromStream(tStream1,.tDocument)
+#;        If $$$ISERR(tSC) Quit
+#;        } while (0)     
+#;        
+#;        
+#;         do {
+#;	         Set tSC=tDocument.EvaluateExpression("/staff","doc",.tResults1)
+#;	Set tStream2=##class(%Dictionary.CompiledXData).%OpenId(..%ClassName(1)_"||insElement").Data
+#;        If '$IsObject(tStream) Set tSC=%objlasterror Quit
+#;        Set tSC=##class(%XML.XPATH.Document).CreateFromStream(tStream2,.tDocument2)
+#;        If $$$ISERR(tSC) Quit
+#;         Set tSC=tDocument1.EvaluateExpression("/staff","doc",.tResults1)
+#;         Set tSC=tDocument2.EvaluateExpression("/acknowledgement","acknowledgement",.tResults2)
+#;       } while (0)    
+         
+         Set writer=##class(%XML.Writer).%New()
+ 	Set writer.Indent=1
+ 	set status=writer.OutputToStream(.tOutput) Quit:$$$ISERR(status)
+ 	 Set status=writer.RootObject(tDocument1) Quit:$$$ISERR(status)
+ 	 zw tOutput
+	quit
+         //concat
+]]></Implementation>
+</Method>
+
+<XData name="ExampleXML">
+<Data><![CDATA[
+<?xml version="1.0"?>
+<staff>
+<doc type="GP">
+  <name first="Myriam" last="Midy">Ms. Midy</name>
+  <name first="Paul" last="Dick">Mr. Dick</name>
+  <name first="Scott" last="Boag">Mr. Boag</name>
+  <name first="Shane" last="Curcuru">Mr. Curcuru</name>
+  <name first="Joseph" last="Kesselman">Mr. Kesselman</name>
+  <name first="Stephen" last="Auriemma">Mr. Auriemma</name>
+</doc>
+</staff>
+]]></Data>
+</XData>
+
+<XData name="insElement">
+<Data><![CDATA[
+<?xml version="1.0"?>
+	<acknowledgement typeCode="AE">
+		<targetMessage>
+			<!--请求的消息ID-->
+			<id root="2.16.156.10011.0" extension="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
+		</targetMessage>
+		<acknowledgementDetail>
+			<!--处理结果说明-->
+			<text>由于XXX原因，注册失败</text>
+		</acknowledgementDetail>
+	</acknowledgement>
+]]></Data>
+</XData>
+
+<XData name="prpa">
+<Data><![CDATA[
+<?xml version="1.0"?>
+<PRPA_IN201311UV02 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ITSVersion="XML_1.0" xsi:schemaLocation="urn:hl7-org:v3 ../multicacheschemas/PRPA_IN201311UV02.xsd" xmlns="urn:hl7-org:v3">
+	<id root="2.16.156.10011.0" extension="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
+	<creationTime value="20070803130624"/>
+	<interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201311UV02"/>
+	<processingCode code="P"/>
+	<processingModeCode code="R"/>
+	<acceptAckCode code="AL"/>
+	<receiver typeCode="RCV">
+		<device classCode="DEV" determinerCode="INSTANCE">
+			<id root="2.16.156.10011.0.1.1" extension="2.16.156.10011.0.1.1"/>
+		</device>
+	</receiver>
+	<sender typeCode="SND">
+		<device classCode="DEV" determinerCode="INSTANCE">
+			<id root="2.16.156.10011.0.1.2" extension="2.16.156.10011.0.1.2"/>
+		</device>
+	</sender>
+	<controlActProcess classCode="CACT" moodCode="EVN">
+		<subject typeCode="SUBJ">
+			<registrationRequest classCode="REG" moodCode="RQO">
+				<statusCode code="active"/>
+				<subject1 typeCode="SBJ">
+					<patient classCode="PAT">
+						<!--本地系统的患者ID -->
+						<id root="2.16.156.10011.0.2.2" extension="25"/>
+						<statusCode code="active"/>
+						<effectiveTime value="20111212141414"/>
+						<patientPerson>
+							<!--身份证号-->
+							<id root="2.16.156.10011.1.3" extension="120109197706015516"/>
+							<!--姓名-->
+							<name use="L">刘永好</name>
+							<!--联系电话-->
+							<telecom value="028-2222444" use="H"/>
+							<!--性别-->
+							<administrativeGenderCode code="1" codeSystem="2.16.156.10011.2.3.3.4" displayName="男性"/>
+							<!--出生时间-->
+							<birthTime value="19570323"/>
+							<!--联系地址-->
+							<addr use="PUB">
+								<!--非结构化地址（完整地址描述） -->
+								<streetAddressLine partType="SAL">四川省成都市双流县红沙村3号</streetAddressLine>
+								<!--地址-省（自治区、直辖市）   -->
+								<state language="CH">广东省</state>
+								<!--地址-市（地区）   -->
+								<city>广州市</city>
+								<!--地址-县（区）   -->
+								<county>越秀区</county>
+								<!-- 地址-乡（镇、街道办事处）   -->
+								<streetNameBase>童心街</streetNameBase>
+								<!-- 地址-村（街、路、弄等）   -->
+								<streetName>下塘西路</streetName>
+								<!-- 地址-门牌号码 -->
+								<houseNumber>39号</houseNumber>
+								<!-- 邮政编码-->
+								<postalCode>510000</postalCode>
+							</addr>
+							<!--婚姻状况-->
+							<maritalStatusCode code="10" codeSystem="2.16.156.10011.2.3.3.5" displayName="未婚"/>
+							<!--民族-->
+							<ethnicGroupCode code="01" codeSystem="2.16.156.10011.2.3.3.3" displayName="汉族"/>
+							<!--职业类别代码-->
+							<asEmployee classCode="EMP">
+								<occupationCode code="13" codeSystem="2.16.156.10011.2.3.3.7" displayName="专业技术人员"/>
+								<employerOrganization classCode="ORG" determinerCode="INSTANCE">
+									<!--工作单位名称-->
+									<name>XXX学校</name>
+									<contactParty classCode="CON">
+										<!--工作联系电话-->
+										<telecom value="028-9999999" use="WP"/>
+									</contactParty>
+								</employerOrganization>
+							</asEmployee>
+							<asOtherIDs classCode="PAT">
+								<!--健康卡号-->
+								<id root="2.16.156.10011.1.19" extension="38273N237"/>
+								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+									<!--健康卡发放机构代码-->
+									<id root="2.16.156.10011.1.5" extension="XXXXX"/>
+								</scopingOrganization>
+							</asOtherIDs>
+							<asOtherIDs classCode="PAT">
+								<!--城乡居民健康档案编号-->
+								<id root="2.16.156.10011.1.2" extension="38273N237"/>
+								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+									<!--建档医疗机构组织机构代码-->
+									<id root="2.16.156.10011.1.5" extension="XXXXX"/>
+								</scopingOrganization>
+							</asOtherIDs>
+							<!--联系人-->
+							<personalRelationship>
+								<code/>
+								<!--联系人电话-->
+								<telecom use="H" value="028-8888888"/>
+								<relationshipHolder1 classCode="PSN" determinerCode="INSTANCE">
+									<!--联系人姓名-->
+									<name>刘好</name>
+								</relationshipHolder1>
+							</personalRelationship>
+						</patientPerson>
+						<providerOrganization classCode="ORG" determinerCode="INSTANCE">
+							<id root="2.16.156.10011.1.5" extension="XXXXX"/>
+							<name use="L">无锡中医院</name>
+							<contactParty classCode="CON"/>
+						</providerOrganization>
+						<!--医疗保险信息-->
+						<coveredPartyOf typeCode="COV">
+							<coverageRecord classCode="COV" moodCode="EVN">
+								<beneficiary typeCode="BEN">
+									<beneficiary classCode="MBR">
+										<code code="1" codeSystem="2.16.156.10011.2.3.1.248" codeSystemName="医疗保险类别代码" displayName="城镇职工基本医疗保险"/>
+									</beneficiary>
+								</beneficiary>
+							</coverageRecord>
+						</coveredPartyOf>
+					</patient>
+				</subject1>
+				<author typeCode="AUT">
+					<assignedEntity classCode="ASSIGNED">
+						<id root="2.16.156.10011.0.3.2" extension="登记人ID"/>
+						<assignedPerson classCode="PSN" determinerCode="INSTANCE">
+							<name use="L">赵武</name>
+						</assignedPerson>
+					</assignedEntity>
+				</author>
+			</registrationRequest>
+		</subject>
+	</controlActProcess>
+</PRPA_IN201311UV02>
+]]></Data>
+</XData>
+</Class>
+
+
+<Project name="SEDemoXML" LastModified="2020-08-17 17:32:19.75635">
+  <Items>
+    <ProjectItem name="SEDemo.XML" type="PKG"></ProjectItem>
+    <ProjectItem name="SEDemo.Util" type="PKG"></ProjectItem>
+    <ProjectItem name="SEDemo.Common" type="PKG"></ProjectItem>
+  </Items>
+</Project>
+</Export>
