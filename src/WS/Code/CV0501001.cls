@@ -1,0 +1,26 @@
+/// 住院者疾病状态代码表
+Class WS.Code.CV0501001 Extends (%Persistent, WS.Code.Abstract) [ Inheritance = right, ProcedureBlock ]
+{
+
+Storage Default
+{
+<Data name="CV0501001DefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>code</Value>
+</Value>
+<Value name="3">
+<Value>displayName</Value>
+</Value>
+</Data>
+<DataLocation>^WS.Code.CV0501001D</DataLocation>
+<DefaultData>CV0501001DefaultData</DefaultData>
+<IdLocation>^WS.Code.CV0501001D</IdLocation>
+<IndexLocation>^WS.Code.CV0501001I</IndexLocation>
+<StreamLocation>^WS.Code.CV0501001S</StreamLocation>
+<Type>%Storage.Persistent</Type>
+}
+
+}
