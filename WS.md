@@ -53,7 +53,8 @@ xslt文件包， 它们可以很方便的转变成CDA文档。
     EnsLib.XSLT.TransformationResponse
 
 # WS.Demo包
-  提供一些互联互通中使用集成平台功能的例子，学习这些例子前确认已经有了基本xml处理的知识，这部分参考[IRIS XML处理实例包](SEDemoXML.md)
+  提供一些互联互通中使用集成平台功能的例子，学习这些例子前确认已经有了基本xml处理的知识，这部分参考[IRIS XML处理实例包](SEDemoXML.md)  
+  <br/>
 ## WS.Demo.CDADemo
 
 产生CDA文档,包括从不同系统聚合数据。 
@@ -68,14 +69,14 @@ PatientAdd()里面用WS.Service.Entity.Bundle作为中间的数据结构。Patie
 
 如果这个ID在数据区CDRLite.Patient已经存在， 响应消息为失败，并包含请求消息中患者的内容； 否则， 如果请求消息中的患者存储CDR成功， 返回成功。（sender, receiver等其他内容没有仔细处理， 可能不正确，请忽略）
 
-![CDADemoMessage]()
+![CDADemoMessage-w50](pictures/CDADemoMessage.PNG)
 
 
 ## SEDemo.ServiceMatrix
 
 来自一个客户的真实需求，实现一个互联互通服务的Matrix。具体的要求是这样：客户在没有集成平台的之前，HIS上有病人数据更新时，HIS会发多个PatientAdd给各个业务系统，比如EMR, LIS, RHIS…等等。在上线集成平台并做互联互通改造时，客户希望HIS只发送一个请求通知CDR，而由其他系统负责分发工作。IRIS所做的集成平台是做这个工作的最好选择，因此在演示中，我将业务流程设计为：HIS将请求将发送给CDR, 如果CDR返回的响应消息的结果是"AA"(成功), 那么请求会由集成平台分发给其他系统， 而这个其他系统的列表基于订阅发布实现，以更容易的管理。 消息流程如下：
 
-![ServiceMatrix消息流程](pictures/ServiceMatrix.png)
+<img src="pictures/ServiceMatrix.png" width="80%">
 
 
 ###to be clean up
