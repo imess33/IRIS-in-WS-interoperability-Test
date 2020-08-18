@@ -8,28 +8,24 @@
 
 # WS.DataElement和WS.DataSet
 
-互联互通数据元类和数据集类。如果客户需要做数据元和数据集的前端管理，这个类可以有帮助。另外， 在下面的WS.Document包中，WS.Document使用了WS.DataElement做为属性字段。
+互联互通数据元类和数据集类。如果客户需要做数据元和数据集的前端管理，这个类可以有帮助。另外， 在下面的WS.Document包中，WS.Document使用了WS.DataElement做为属性字段。  
 
-加载: 导入WS.DataElement和WS.DataSet 
+# WS.Document
 
-# WS.Document和转换CDA的xslt文件
+虽然不是必须的， 但如果客户希望使用IRIS的能力生成CDA文档， 可以使用IRIS中数据转换能力实现这一需求。并且，客户还可以充分使用IRIS的数据汇聚作用，从另外的系统中补充源文档中缺少的信息。当源文档缺少某个内容时，IRIS可以从CDR获得并聚合成一个对象，之后将原始文档转换成互联互通的CDA文档。   
 
-这个包的目的是演示使用IRIS生成CDA文档。如果客户希望使用IRIS的能力生成CDA文档， 那么可以充分使用IRIS的数据汇聚作用，从另外的系统中补充源文档中缺少的信息。如下图， 当源文档缺少某个内容时，IRIS可以从CDR获得并聚合成一个对象，然后使用xslt转换为互联互通文档。
+将一个数据结构转换成CDA最高效的方式是xslt。如果客户对xslt不熟悉而希望使用IRIS的数据转换工具DTL, 当然也是可以的，但要对非常多的xml属性和attribut赋值是非常麻烦的操作。 
+
+以下是建议的IRIS生成CDA文档的示意图：   
 
 ![IRIS帮助生成互联互通文档示意图](https://github.com/imess33/IRIS-in-WS-interoperability-Test/blob/master/pictures/CreateCDADocument.png)
 
-## WS.Document.Bundle
-WS.Bundle以及其中的子集WS.Document.Set是一个中间的数据模型， 负责客户独特的数据结构到WS.Document.Cxxx的转换。
-- 定义了文档的通用属性，比如模板编号，标题，版本号，创建时间，作者等， 对应了互联互通文档的相应部分。
-- 包含了患者章节，住院章节，相关文档章节等等， 对应互联互通文档的相关章节
-- WS.Document.Bundle使用了**WS.Document.Set**里面的类作为属性，这些类包括address, authenticator, loaction, patient,relatedDcoument等等CDA文档中通用的结构。
 
-这样不是必须的， 但带来的好处是：WS.Bundle是一个通用的数据接口，bundle里包含患者， 文档， 作者，机构等等所有互联互通各种服务的架构， 通过它， 可以把所有文档到CDA的转换固定下来， 客户的任意数据结构， 任意xml，可以简单的转换到WS.Bundle，这部分工作属于现场实施，而WS.Bundle到CDA固定于产品中。 
-## WS.Document.C00xx包
-对应于53个互联互通文档，应该有53个C00xx包，每个包中的类对应一个互联互通文档。
+为了更方便的实施，示例中定义了**WS.Document.C00xx**的类包。每个包对应一个文档，这样就有从C0001-C0053个类包。 每个类包的主类为**WS.Document.C00xx.C00xx**，继承于**WS.Document.Bundle**类， bundle定义了文档的通用属性，比如模板编号，标题，版本号，创建时间，作者等，以及患者章节，住院章节，相关文档章节等等，对于与互联互通文档中广泛通用的那部分内容。这样整个WS.Document.C00xx成为了一个中间的数据模型，配以相应的xslt文件，就完成了CDA的转换工作。 
 
-## WS_Document_XSLT.zip
-xslt文件包， 它们可以很方便的转变成CDA文档。 
+这样做的好处是从WS.Document.C00xx, 我称它为文档类，到互联互通文档的转换是固定下来的。无论客户发来的原始数据是什么样，是否是xml还是json, 实施时只需开发从客户数据到文档类的转换即可，相对容易操作。 
+
+ 这样的实施在**WS.Demo.CDADemo这个演示包里可以看到。
 
 # WS.Service包
 
@@ -53,24 +49,19 @@ xslt文件包， 它们可以很方便的转变成CDA文档。
     EnsLib.XSLT.TransformationResponse
 
 # WS.Demo包
-  提供一些互联互通中使用集成平台功能的例子，学习这些例子前确认已经有了基本xml处理的知识，这部分参考[IRIS XML处理实例包](SEDemoXML.md)  
+
+提供两个互联互通中使用集成平台功能的例子。学习这些例子前请确认您已经了解了基本的xml处理的知识。如果不确定， 请先参考[IRIS XML处理实例包](SEDemoXML.md)的内容。
   <br/>
 ## WS.Demo.CDADemo
 
-产生CDA文档,包括从不同系统聚合数据。 
+演示上文中说明的IRIS产生CDA文档。从源文件收到客户的"日常病程记录“的xml数据(实际是从**TestService**)发出的。它不完整，缺少患者身份证号码，而这个在互联互通的日常病程记录文档里是必须的字段。  
+请求消息发送给**服务处理主流程**,转发给**C0038数据聚合**业务流程。该业务流程从**临床数据库CDR**获得患者身份证号码，聚合后发送给**CDA文档生成**，后者返回生成的CDA。   
 
-临床数据库CDR： 在平台兼具CDR功能时， 此BO可以收到并提供互联互通服务。产品里用PatientAdd和PatientQuery来演示。 
-
-PatientAdd()里面用WS.Service.Entity.Bundle作为中间的数据结构。PatientAdd中的数据用DTL添加入这个Bundle, 而Bundle和返回的互联互通响应V3消息之间用xslt实现。 
-附件里提供了一些DTL的例子，包括病人添加，查询医疗机构，文档添加查询到Bundel的DT转换， 以及相应的xslt文件。
-其中使用了SEDemo.CDRLite.Patient来储存患者， 患者id取自请求消息中的
-<!--本地系统的患者ID -->
-<id root="2.16.156.10011.0.2.2" extension="0s0sdsdsssddd5q7"/>
-
-如果这个ID在数据区CDRLite.Patient已经存在， 响应消息为失败，并包含请求消息中患者的内容； 否则， 如果请求消息中的患者存储CDR成功， 返回成功。（sender, receiver等其他内容没有仔细处理， 可能不正确，请忽略）
+（这里只是示意，实际业务中CDA产生后应该储存于CDA文档库，并且还会附带文档注册的请求。这些留给客户去实践吧)
 
 ![CDADemoMessage-w50](https://github.com/imess33/IRIS-in-WS-interoperability-Test/blob/master/pictures/CDADemoMessage.PNG)
 
+另外， Production中还包含了**WS.Serivce.SOAPIn**和**CDA文档操作**两个组件，有兴趣的客户可以用他们来测试文档注册，查询等等。 
 
 ## SEDemo.ServiceMatrix
 
@@ -78,24 +69,8 @@ PatientAdd()里面用WS.Service.Entity.Bundle作为中间的数据结构。Patie
 
 <img src="pictures/ServiceMatrix.png" width="80%">
 
-
-###to be clean up
-
-
-
-            因此， Demo中当上一步的PatientAdd()被CDRLite返回的是"注册成功"时， 同样的请求会分发其他系统， 如果不成功则不会。
-
-            PatientQuery：使用请求消息中以下字段中的id查CDRLite, 如果查到返回标准成功响应消息， 否则响应消息中会出现”此病人不存在". 
-
-            实现方式如果PatientAdd, 请参考PatientQuery.xsl。
-
-                <livingSubjectId>
-                    <value root="2.16.156.10011.0.2.2" extension="0ssddd5q7"></value>
-                    <semanticsText>患者ID</semanticsText>
-                </livingSubjectId>
         
-
-## 演示包的加载
+# WS包的加载
 
 - 两种方法加载演示包的代码部分： 
     1. 下载WS.xml,并在管理界面或者studio导入并编译。
