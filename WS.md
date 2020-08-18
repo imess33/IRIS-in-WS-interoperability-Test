@@ -16,7 +16,7 @@
 
 这个包的目的是演示使用IRIS生成CDA文档。如果客户希望使用IRIS的能力生成CDA文档， 那么可以充分使用IRIS的数据汇聚作用，从另外的系统中补充源文档中缺少的信息。如下图， 当源文档缺少某个内容时，IRIS可以从CDR获得并聚合成一个对象，然后使用xslt转换为互联互通文档。
 
-![IRIS帮助生成互联互通文档示意图](pictures/CreateCDADocument.png)
+![IRIS帮助生成互联互通文档示意图](https://github.com/imess33/IRIS-in-WS-interoperability-Test/blob/master/pictures/CreateCDADocument.png)
 
 ## WS.Document.Bundle
 WS.Bundle以及其中的子集WS.Document.Set是一个中间的数据模型， 负责客户独特的数据结构到WS.Document.Cxxx的转换。
@@ -69,7 +69,7 @@ PatientAdd()里面用WS.Service.Entity.Bundle作为中间的数据结构。Patie
 
 如果这个ID在数据区CDRLite.Patient已经存在， 响应消息为失败，并包含请求消息中患者的内容； 否则， 如果请求消息中的患者存储CDR成功， 返回成功。（sender, receiver等其他内容没有仔细处理， 可能不正确，请忽略）
 
-![CDADemoMessage-w50](pictures/CDADemoMessage.PNG)
+![CDADemoMessage-w50](https://github.com/imess33/IRIS-in-WS-interoperability-Test/blob/master/pictures/CDADemoMessage.PNG)
 
 
 ## SEDemo.ServiceMatrix
