@@ -52,23 +52,4 @@ XData ProgressNoteRequest
 </ProgressNoteRequest>
 }
 
-XData temp
-{
-<ProgressNoteRequest>
-	<InPatientNumber>4810218</InPatientNumber>
-	<Name>杨平</Name>
-	<Age>49</Age>
-	<Sex>女性</Sex>
-	<Department>消化科</Department>
-	<Ward>消化科</Ward>
-	<Room>三病房</Room>
-	<Bed>18</Bed>
-	<CreateTime>202001021212</CreateTime>
-	<Doctor>刘净</Doctor>
-	<Note>患者入院后完善各项常规检查，做好术前准备，保守
-治疗无明显好转，于2010-01-02在全身麻醉下行乙状结肠冗肠扭转整复+肠腔减压术，术中见:腹腔约300ml。淡黄色积液，全腹肠管扩张胀气，以结肠明显，乙状结肠冗肠约80-100CM长，乙状结肠冗肠顺时针方向扭转720度、肠管高度扩张胀气，直径最大约30CM，肠壁充血水肿明显，未见明显变黑坏死，余未见明显异常。术中扩肛后通过肛门排出大量气体及稀便。术程顺利，麻醉平稳，术后安返病房，予消炎补液支持对症等治疗，术后恢复好，患者及家属要求明日出院。</Note>
-	<Order>目前予患者综合保守治疗</Order>
-</ProgressNoteRequest>
-}
-
 }

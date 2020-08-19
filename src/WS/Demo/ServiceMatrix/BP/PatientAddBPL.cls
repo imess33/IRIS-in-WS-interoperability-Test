@@ -1,5 +1,5 @@
 /// HIS新增或者修改患者信息， 会首先发请求去CDR。 如果EMR返回成功，会触发订阅发布服务，将新的患者信息同步给LIS, RHIE, EMR ..., 后面的同步消息不需要返回给HIS, 但平台需要检验是否成功。
-Class WS.Demo.ServiceMatirx.BP.PatientAddBPL Extends Ens.BusinessProcessBPL
+Class WS.Demo.ServiceMatrix.BP.PatientAddBPL Extends Ens.BusinessProcessBPL
 {
 
 /// BPL Definition

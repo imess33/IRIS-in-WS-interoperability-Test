@@ -1,7 +1,7 @@
 Include (InterconnectionActions, InterconnectionServiceDocType, %occStatus)
 
 /// 在本演示包里模拟一个CDR的表现。 在实际应用上，
-///
+/// 
 Class WS.Demo.ServiceMatrix.BO.toCDR Extends Ens.BusinessOperation
 {
 

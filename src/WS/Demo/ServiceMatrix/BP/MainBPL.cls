@@ -1,5 +1,5 @@
 /// 互联互通服务主处理流程：默认使用EDI虚拟文档处理。 如果外部系统可以处理互联互通V3消息，比如示范中医护操作和医嘱操作， 直接发送请求消息的Message流到业务操作，
-Class WS.Demo.ServiceMatirx.BP.MainBPL Extends Ens.BusinessProcessBPL
+Class WS.Demo.ServiceMatrix.BP.MainBPL Extends Ens.BusinessProcessBPL
 {
 
 Storage Default

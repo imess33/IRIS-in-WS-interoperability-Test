@@ -1,5 +1,5 @@
 /// 
-Class WS.Demo.ServiceMatirx.BP.PubSubBPL Extends Ens.BusinessProcessBPL
+Class WS.Demo.ServiceMatrix.BP.PubSubBPL Extends Ens.BusinessProcessBPL
 {
 
 /// BPL Definition
