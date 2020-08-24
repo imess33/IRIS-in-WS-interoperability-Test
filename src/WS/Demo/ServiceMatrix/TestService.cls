@@ -1,3 +1,9 @@
+/// 在ServiceMatrix Production用户可以代替SOAPUI发起测试消息。当本组件启动时，调用WS.Service.SOAPUI发送请求
+/// 请求消息为互联互通的患者添加，患者查询，消息会被业务操作“toCDR"处理。toCDR会查询患者ID，返回是否成功。 
+/// 如果是再次发送患者添加，会因重复添加数据返回注册失败。如果需要避免，需要修改XData块里面的患者ID
+/// <!--本地系统的患者ID -->
+/// <id root="2.16.156.10011.0.2.2" extension="0cdadfa"/>
+/// 
 Class WS.Demo.ServiceMatrix.TestService Extends Ens.BusinessService
 {
 

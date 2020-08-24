@@ -31,33 +31,9 @@ Property PrimaryLanguage As %String;
 /// 宗教
 Property Religion As %String;
 
-/// 性别
-Property Gender As WS.Code.GBT22611Gender;
-
-/// 婚姻状态
-Property MaritalStatus As WS.Code.GBT22612MaritalStatus;
-
-/// 民族
-Property EthnicGroup As WS.Code.GBT3304EthnicGroup;
-
-/// 职业
-Property Occupation As WS.Code.GBT22614Occupation;
-
-/// 出生日期
-Property DOB As %String;
+// Property Address As WS.Service.Entity.Address;
 
 /// 住址
-Property Address As WS.Service.Entity.Address;
-
-/// 电话
-Property PhoneNumber As %String;
-
-/// 联系人
-Property SupportContacts As list Of WS.Service.Entity.SupportContact;
-
-/// 工作单位
-Property Employer As WS.Service.Entity.Organization;
-
 Storage Default
 {
 <Data name="PatientDefaultData">
@@ -118,6 +94,8 @@ Storage Default
 </Data>
 <DataLocation>^SEDemo.Common.PatientD</DataLocation>
 <DefaultData>PatientDefaultData</DefaultData>
+<Description>
+<![CDATA[住址]]></Description>
 <IdLocation>^SEDemo.Common.PatientD</IdLocation>
 <IndexLocation>^SEDemo.Common.PatientI</IndexLocation>
 <StreamLocation>^SEDemo.Common.PatientS</StreamLocation>
